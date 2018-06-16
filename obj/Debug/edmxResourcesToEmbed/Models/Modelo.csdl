@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="movilesSoftwareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="clientId" />
+    </Key>
+    <Property Name="clientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="clientLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clientPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clientNames" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clientLastnames" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clientDocNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clientPhone" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="clientEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clientAddess" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="clientReference" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="clientState" Type="Boolean" Nullable="false" />
+    <Property Name="clientHidden" Type="Boolean" Nullable="false" />
+    <Property Name="clientDocType" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DocumentTypes" Relationship="Self.FK_Clients_DocumentTypes" FromRole="Clients" ToRole="DocumentTypes" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Clients" FromRole="Clients" ToRole="Comments" />
+    <NavigationProperty Name="Deals" Relationship="Self.FK_Deals_Clients" FromRole="Clients" ToRole="Deals" />
+    <NavigationProperty Name="Favorites" Relationship="Self.FK_Favorites_Clients" FromRole="Clients" ToRole="Favorites" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="commentId" />
+    </Key>
+    <Property Name="commentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dealId" Type="Int32" Nullable="false" />
+    <Property Name="clientId" Type="Int32" Nullable="false" />
+    <Property Name="specialistId" Type="Int32" Nullable="false" />
+    <Property Name="commentDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="commentDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="commnetHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Comments_Clients" FromRole="Comments" ToRole="Clients" />
+    <NavigationProperty Name="Specialists" Relationship="Self.FK_Comments_Specialists" FromRole="Comments" ToRole="Specialists" />
+  </EntityType>
+  <EntityType Name="Deals">
+    <Key>
+      <PropertyRef Name="dealId" />
+    </Key>
+    <Property Name="dealId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="clientId" Type="Int32" Nullable="false" />
+    <Property Name="specialistId" Type="Int32" Nullable="false" />
+    <Property Name="dealDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="deatDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="dealRate" Type="Int16" Nullable="false" />
+    <Property Name="dealState" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Deals_Clients" FromRole="Deals" ToRole="Clients" />
+    <NavigationProperty Name="Specialists" Relationship="Self.FK_Deals_Specialists" FromRole="Deals" ToRole="Specialists" />
+  </EntityType>
+  <EntityType Name="DocumentTypes">
+    <Key>
+      <PropertyRef Name="doctypeId" />
+    </Key>
+    <Property Name="doctypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="doctypeDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Clients_DocumentTypes" FromRole="DocumentTypes" ToRole="Clients" />
+    <NavigationProperty Name="Specialists" Relationship="Self.FK_Specialists_DocumentTypes" FromRole="DocumentTypes" ToRole="Specialists" />
+  </EntityType>
+  <EntityType Name="Favorites">
+    <Key>
+      <PropertyRef Name="favoriteId" />
+    </Key>
+    <Property Name="favoriteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="favoriteHidden" Type="Boolean" Nullable="false" />
+    <Property Name="clientId" Type="Int32" Nullable="false" />
+    <Property Name="specialistId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Clients" Relationship="Self.FK_Favorites_Clients" FromRole="Favorites" ToRole="Clients" />
+  </EntityType>
+  <EntityType Name="Specialists">
+    <Key>
+      <PropertyRef Name="specialistId" />
+    </Key>
+    <Property Name="specialistId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="specialistLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistNames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistLastnames" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistDocType" Type="Int32" Nullable="false" />
+    <Property Name="specialistDocNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistPhone" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="specialistFacebook" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="specialistWeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="specialistAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="specialistReference" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="specialistLatitude" Type="Double" Nullable="false" />
+    <Property Name="specialistLogintude" Type="Double" Nullable="false" />
+    <Property Name="specialistAcredited" Type="Boolean" Nullable="false" />
+    <Property Name="specialistMembership" Type="Boolean" Nullable="false" />
+    <Property Name="specialistRate" Type="Int16" Nullable="false" />
+    <Property Name="specialistState" Type="Boolean" Nullable="false" />
+    <Property Name="specialistHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Specialists" FromRole="Specialists" ToRole="Comments" />
+    <NavigationProperty Name="Deals" Relationship="Self.FK_Deals_Specialists" FromRole="Specialists" ToRole="Deals" />
+    <NavigationProperty Name="DocumentTypes" Relationship="Self.FK_Specialists_DocumentTypes" FromRole="Specialists" ToRole="DocumentTypes" />
+    <NavigationProperty Name="SpecTags" Relationship="Self.FK_SpecTags_Specialists" FromRole="Specialists" ToRole="SpecTags" />
+  </EntityType>
+  <EntityType Name="SpecTags">
+    <Key>
+      <PropertyRef Name="spectagId" />
+    </Key>
+    <Property Name="spectagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tagId" Type="Int32" Nullable="false" />
+    <Property Name="specialistId" Type="Int32" Nullable="false" />
+    <Property Name="spectagsHidden" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Specialists" Relationship="Self.FK_SpecTags_Specialists" FromRole="SpecTags" ToRole="Specialists" />
+    <NavigationProperty Name="Tags" Relationship="Self.FK_SpecTags_Tags" FromRole="SpecTags" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="tagId" />
+    </Key>
+    <Property Name="tagId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tagDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="SpecTags" Relationship="Self.FK_SpecTags_Tags" FromRole="Tags" ToRole="SpecTags" />
+  </EntityType>
+  <Association Name="FK_Clients_DocumentTypes">
+    <End Role="DocumentTypes" Type="Self.DocumentTypes" Multiplicity="1" />
+    <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DocumentTypes">
+        <PropertyRef Name="doctypeId" />
+      </Principal>
+      <Dependent Role="Clients">
+        <PropertyRef Name="clientDocType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="clientId" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="clientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deals_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Deals" Type="Self.Deals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="clientId" />
+      </Principal>
+      <Dependent Role="Deals">
+        <PropertyRef Name="clientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Favorites_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Favorites" Type="Self.Favorites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="clientId" />
+      </Principal>
+      <Dependent Role="Favorites">
+        <PropertyRef Name="clientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Specialists">
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialists">
+        <PropertyRef Name="specialistId" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="specialistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deals_Specialists">
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+    <End Role="Deals" Type="Self.Deals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialists">
+        <PropertyRef Name="specialistId" />
+      </Principal>
+      <Dependent Role="Deals">
+        <PropertyRef Name="specialistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Specialists_DocumentTypes">
+    <End Role="DocumentTypes" Type="Self.DocumentTypes" Multiplicity="1" />
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DocumentTypes">
+        <PropertyRef Name="doctypeId" />
+      </Principal>
+      <Dependent Role="Specialists">
+        <PropertyRef Name="specialistDocType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SpecTags_Specialists">
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+    <End Role="SpecTags" Type="Self.SpecTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialists">
+        <PropertyRef Name="specialistId" />
+      </Principal>
+      <Dependent Role="SpecTags">
+        <PropertyRef Name="specialistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SpecTags_Tags">
+    <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+    <End Role="SpecTags" Type="Self.SpecTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="tagId" />
+      </Principal>
+      <Dependent Role="SpecTags">
+        <PropertyRef Name="tagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="movilesSoftwareEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clients" EntityType="Self.Clients" />
+    <EntitySet Name="Comments" EntityType="Self.Comments" />
+    <EntitySet Name="Deals" EntityType="Self.Deals" />
+    <EntitySet Name="DocumentTypes" EntityType="Self.DocumentTypes" />
+    <EntitySet Name="Favorites" EntityType="Self.Favorites" />
+    <EntitySet Name="Specialists" EntityType="Self.Specialists" />
+    <EntitySet Name="SpecTags" EntityType="Self.SpecTags" />
+    <EntitySet Name="Tags" EntityType="Self.Tags" />
+    <AssociationSet Name="FK_Clients_DocumentTypes" Association="Self.FK_Clients_DocumentTypes">
+      <End Role="DocumentTypes" EntitySet="DocumentTypes" />
+      <End Role="Clients" EntitySet="Clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Clients" Association="Self.FK_Comments_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deals_Clients" Association="Self.FK_Deals_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Deals" EntitySet="Deals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Favorites_Clients" Association="Self.FK_Favorites_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Favorites" EntitySet="Favorites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Specialists" Association="Self.FK_Comments_Specialists">
+      <End Role="Specialists" EntitySet="Specialists" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deals_Specialists" Association="Self.FK_Deals_Specialists">
+      <End Role="Specialists" EntitySet="Specialists" />
+      <End Role="Deals" EntitySet="Deals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Specialists_DocumentTypes" Association="Self.FK_Specialists_DocumentTypes">
+      <End Role="DocumentTypes" EntitySet="DocumentTypes" />
+      <End Role="Specialists" EntitySet="Specialists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SpecTags_Specialists" Association="Self.FK_SpecTags_Specialists">
+      <End Role="Specialists" EntitySet="Specialists" />
+      <End Role="SpecTags" EntitySet="SpecTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SpecTags_Tags" Association="Self.FK_SpecTags_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="SpecTags" EntitySet="SpecTags" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

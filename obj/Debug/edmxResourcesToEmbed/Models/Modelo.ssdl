@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="movilesSoftwareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="clientId" />
+    </Key>
+    <Property Name="clientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="clientLogin" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="clientPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="clientNames" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="clientLastnames" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="clientDocNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="clientPhone" Type="char" MaxLength="9" Nullable="false" />
+    <Property Name="clientEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="clientAddess" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="clientReference" Type="varchar" MaxLength="300" />
+    <Property Name="clientState" Type="bit" Nullable="false" />
+    <Property Name="clientHidden" Type="bit" Nullable="false" />
+    <Property Name="clientDocType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Comments">
+    <Key>
+      <PropertyRef Name="commentId" />
+    </Key>
+    <Property Name="commentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dealId" Type="int" Nullable="false" />
+    <Property Name="clientId" Type="int" Nullable="false" />
+    <Property Name="specialistId" Type="int" Nullable="false" />
+    <Property Name="commentDate" Type="date" Nullable="false" />
+    <Property Name="commentDescription" Type="varchar" MaxLength="300" />
+    <Property Name="commnetHidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Deals">
+    <Key>
+      <PropertyRef Name="dealId" />
+    </Key>
+    <Property Name="dealId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="clientId" Type="int" Nullable="false" />
+    <Property Name="specialistId" Type="int" Nullable="false" />
+    <Property Name="dealDate" Type="date" Nullable="false" />
+    <Property Name="deatDescription" Type="varchar" MaxLength="100" />
+    <Property Name="dealRate" Type="smallint" Nullable="false" />
+    <Property Name="dealState" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DocumentTypes">
+    <Key>
+      <PropertyRef Name="doctypeId" />
+    </Key>
+    <Property Name="doctypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="doctypeDescription" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="Favorites">
+    <Key>
+      <PropertyRef Name="favoriteId" />
+    </Key>
+    <Property Name="favoriteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="favoriteHidden" Type="bit" Nullable="false" />
+    <Property Name="clientId" Type="int" Nullable="false" />
+    <Property Name="specialistId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Specialists">
+    <Key>
+      <PropertyRef Name="specialistId" />
+    </Key>
+    <Property Name="specialistId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="specialistLogin" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="specialistPassword" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="specialistNames" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="specialistLastnames" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="specialistCompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="specialistDescription" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="specialistDocType" Type="int" Nullable="false" />
+    <Property Name="specialistDocNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="specialistPhone" Type="char" MaxLength="9" Nullable="false" />
+    <Property Name="specialistFacebook" Type="varchar" MaxLength="50" />
+    <Property Name="specialistWeb" Type="varchar" MaxLength="50" />
+    <Property Name="specialistAddress" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="specialistReference" Type="varchar" MaxLength="300" />
+    <Property Name="specialistLatitude" Type="float" Nullable="false" />
+    <Property Name="specialistLogintude" Type="float" Nullable="false" />
+    <Property Name="specialistAcredited" Type="bit" Nullable="false" />
+    <Property Name="specialistMembership" Type="bit" Nullable="false" />
+    <Property Name="specialistRate" Type="smallint" Nullable="false" />
+    <Property Name="specialistState" Type="bit" Nullable="false" />
+    <Property Name="specialistHidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SpecTags">
+    <Key>
+      <PropertyRef Name="spectagId" />
+    </Key>
+    <Property Name="spectagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tagId" Type="int" Nullable="false" />
+    <Property Name="specialistId" Type="int" Nullable="false" />
+    <Property Name="spectagsHidden" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="tagId" />
+    </Key>
+    <Property Name="tagId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tagDescription" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'movilesSoftware.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <Association Name="FK_Clients_DocumentTypes">
+    <End Role="DocumentTypes" Type="Self.DocumentTypes" Multiplicity="1" />
+    <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DocumentTypes">
+        <PropertyRef Name="doctypeId" />
+      </Principal>
+      <Dependent Role="Clients">
+        <PropertyRef Name="clientDocType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="clientId" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="clientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Specialists">
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialists">
+        <PropertyRef Name="specialistId" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="specialistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deals_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Deals" Type="Self.Deals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="clientId" />
+      </Principal>
+      <Dependent Role="Deals">
+        <PropertyRef Name="clientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Deals_Specialists">
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+    <End Role="Deals" Type="Self.Deals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialists">
+        <PropertyRef Name="specialistId" />
+      </Principal>
+      <Dependent Role="Deals">
+        <PropertyRef Name="specialistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Favorites_Clients">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+    <End Role="Favorites" Type="Self.Favorites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="clientId" />
+      </Principal>
+      <Dependent Role="Favorites">
+        <PropertyRef Name="clientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Specialists_DocumentTypes">
+    <End Role="DocumentTypes" Type="Self.DocumentTypes" Multiplicity="1" />
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DocumentTypes">
+        <PropertyRef Name="doctypeId" />
+      </Principal>
+      <Dependent Role="Specialists">
+        <PropertyRef Name="specialistDocType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SpecTags_Specialists">
+    <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+    <End Role="SpecTags" Type="Self.SpecTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialists">
+        <PropertyRef Name="specialistId" />
+      </Principal>
+      <Dependent Role="SpecTags">
+        <PropertyRef Name="specialistId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SpecTags_Tags">
+    <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+    <End Role="SpecTags" Type="Self.SpecTags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="tagId" />
+      </Principal>
+      <Dependent Role="SpecTags">
+        <PropertyRef Name="tagId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="movilesSoftwareModelStoreContainer">
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Deals" EntityType="Self.Deals" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DocumentTypes" EntityType="Self.DocumentTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Favorites" EntityType="Self.Favorites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Specialists" EntityType="Self.Specialists" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SpecTags" EntityType="Self.SpecTags" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Clients_DocumentTypes" Association="Self.FK_Clients_DocumentTypes">
+      <End Role="DocumentTypes" EntitySet="DocumentTypes" />
+      <End Role="Clients" EntitySet="Clients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Clients" Association="Self.FK_Comments_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Specialists" Association="Self.FK_Comments_Specialists">
+      <End Role="Specialists" EntitySet="Specialists" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deals_Clients" Association="Self.FK_Deals_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Deals" EntitySet="Deals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Deals_Specialists" Association="Self.FK_Deals_Specialists">
+      <End Role="Specialists" EntitySet="Specialists" />
+      <End Role="Deals" EntitySet="Deals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Favorites_Clients" Association="Self.FK_Favorites_Clients">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Favorites" EntitySet="Favorites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Specialists_DocumentTypes" Association="Self.FK_Specialists_DocumentTypes">
+      <End Role="DocumentTypes" EntitySet="DocumentTypes" />
+      <End Role="Specialists" EntitySet="Specialists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SpecTags_Specialists" Association="Self.FK_SpecTags_Specialists">
+      <End Role="Specialists" EntitySet="Specialists" />
+      <End Role="SpecTags" EntitySet="SpecTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SpecTags_Tags" Association="Self.FK_SpecTags_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="SpecTags" EntitySet="SpecTags" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

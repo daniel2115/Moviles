@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="movilesSoftwareModelStoreContainer" CdmEntityContainer="movilesSoftwareEntities">
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.Clients">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="clientId" ColumnName="clientId" />
+          <ScalarProperty Name="clientLogin" ColumnName="clientLogin" />
+          <ScalarProperty Name="clientPassword" ColumnName="clientPassword" />
+          <ScalarProperty Name="clientNames" ColumnName="clientNames" />
+          <ScalarProperty Name="clientLastnames" ColumnName="clientLastnames" />
+          <ScalarProperty Name="clientDocNumber" ColumnName="clientDocNumber" />
+          <ScalarProperty Name="clientPhone" ColumnName="clientPhone" />
+          <ScalarProperty Name="clientEmail" ColumnName="clientEmail" />
+          <ScalarProperty Name="clientAddess" ColumnName="clientAddess" />
+          <ScalarProperty Name="clientReference" ColumnName="clientReference" />
+          <ScalarProperty Name="clientState" ColumnName="clientState" />
+          <ScalarProperty Name="clientHidden" ColumnName="clientHidden" />
+          <ScalarProperty Name="clientDocType" ColumnName="clientDocType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.Comments">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="commentId" ColumnName="commentId" />
+          <ScalarProperty Name="dealId" ColumnName="dealId" />
+          <ScalarProperty Name="clientId" ColumnName="clientId" />
+          <ScalarProperty Name="specialistId" ColumnName="specialistId" />
+          <ScalarProperty Name="commentDate" ColumnName="commentDate" />
+          <ScalarProperty Name="commentDescription" ColumnName="commentDescription" />
+          <ScalarProperty Name="commnetHidden" ColumnName="commnetHidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Deals">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.Deals">
+        <MappingFragment StoreEntitySet="Deals">
+          <ScalarProperty Name="dealId" ColumnName="dealId" />
+          <ScalarProperty Name="clientId" ColumnName="clientId" />
+          <ScalarProperty Name="specialistId" ColumnName="specialistId" />
+          <ScalarProperty Name="dealDate" ColumnName="dealDate" />
+          <ScalarProperty Name="deatDescription" ColumnName="deatDescription" />
+          <ScalarProperty Name="dealRate" ColumnName="dealRate" />
+          <ScalarProperty Name="dealState" ColumnName="dealState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentTypes">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.DocumentTypes">
+        <MappingFragment StoreEntitySet="DocumentTypes">
+          <ScalarProperty Name="doctypeId" ColumnName="doctypeId" />
+          <ScalarProperty Name="doctypeDescription" ColumnName="doctypeDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Favorites">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.Favorites">
+        <MappingFragment StoreEntitySet="Favorites">
+          <ScalarProperty Name="favoriteId" ColumnName="favoriteId" />
+          <ScalarProperty Name="favoriteHidden" ColumnName="favoriteHidden" />
+          <ScalarProperty Name="clientId" ColumnName="clientId" />
+          <ScalarProperty Name="specialistId" ColumnName="specialistId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Specialists">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.Specialists">
+        <MappingFragment StoreEntitySet="Specialists">
+          <ScalarProperty Name="specialistId" ColumnName="specialistId" />
+          <ScalarProperty Name="specialistLogin" ColumnName="specialistLogin" />
+          <ScalarProperty Name="specialistPassword" ColumnName="specialistPassword" />
+          <ScalarProperty Name="specialistNames" ColumnName="specialistNames" />
+          <ScalarProperty Name="specialistLastnames" ColumnName="specialistLastnames" />
+          <ScalarProperty Name="specialistCompanyName" ColumnName="specialistCompanyName" />
+          <ScalarProperty Name="specialistDescription" ColumnName="specialistDescription" />
+          <ScalarProperty Name="specialistDocType" ColumnName="specialistDocType" />
+          <ScalarProperty Name="specialistDocNumber" ColumnName="specialistDocNumber" />
+          <ScalarProperty Name="specialistPhone" ColumnName="specialistPhone" />
+          <ScalarProperty Name="specialistFacebook" ColumnName="specialistFacebook" />
+          <ScalarProperty Name="specialistWeb" ColumnName="specialistWeb" />
+          <ScalarProperty Name="specialistAddress" ColumnName="specialistAddress" />
+          <ScalarProperty Name="specialistReference" ColumnName="specialistReference" />
+          <ScalarProperty Name="specialistLatitude" ColumnName="specialistLatitude" />
+          <ScalarProperty Name="specialistLogintude" ColumnName="specialistLogintude" />
+          <ScalarProperty Name="specialistAcredited" ColumnName="specialistAcredited" />
+          <ScalarProperty Name="specialistMembership" ColumnName="specialistMembership" />
+          <ScalarProperty Name="specialistRate" ColumnName="specialistRate" />
+          <ScalarProperty Name="specialistState" ColumnName="specialistState" />
+          <ScalarProperty Name="specialistHidden" ColumnName="specialistHidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SpecTags">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.SpecTags">
+        <MappingFragment StoreEntitySet="SpecTags">
+          <ScalarProperty Name="spectagId" ColumnName="spectagId" />
+          <ScalarProperty Name="tagId" ColumnName="tagId" />
+          <ScalarProperty Name="specialistId" ColumnName="specialistId" />
+          <ScalarProperty Name="spectagsHidden" ColumnName="spectagsHidden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="movilesSoftwareModel.Tags">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="tagId" ColumnName="tagId" />
+          <ScalarProperty Name="tagDescription" ColumnName="tagDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
