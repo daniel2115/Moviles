@@ -46,9 +46,9 @@ namespace ServiciosMovilkes.Manager
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.CustomerId;
-                cmd.Parameters.Add("@title", System.Data.SqlDbType.Int).Value = spe.Title;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.Description;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.State; 
+                cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.Title;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.Description;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State; 
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
@@ -77,9 +77,9 @@ namespace ServiciosMovilkes.Manager
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.CustomerId;
-                cmd.Parameters.Add("@title", System.Data.SqlDbType.Int).Value = spe.Title;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.Description;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.State;
+                cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.Title;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.Description;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State; 
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)

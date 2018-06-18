@@ -232,7 +232,7 @@ namespace ServiciosMovilkes.Manager
             List<Favorite> lista = new List<Favorite>();
             try
             {
-                string sql = "Select Id,CustomerId,SpecialistId,Hidden from Favorites where CustomerId = @idClient";
+                string sql = "Select Id,Hidden,CustomerId,SpecialistId from Favorites where CustomerId = @idClient";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@idClient", System.Data.SqlDbType.NVarChar).Value = id;
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);

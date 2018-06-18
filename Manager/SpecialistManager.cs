@@ -220,7 +220,7 @@ namespace ServiciosMovilkes.Manager
                     "LastNames = @lastnames,Email=@email,CompanyName = @companyname,ServiceDescription = @description," +
                     "DocumentTypeId = @doctype, DocumentNumber = @docnumber, PhoneNumber = @phone, Facebook = @facebook," +
                     "WebSite = @web, Address = @address , Reference = @reference , Latitude = @latitud," +
-                    "Longitude = @longitud, Acredited = @acredited , Membership = @membership, Rate = @rate," +
+                    "Longitude = @longitud, Accredited = @acredited , Membership = @membership, Rate = @rate," +
                     "Online = @online,State = @state output INSERTED.Id where Id = @id";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = spe.Login;
@@ -271,7 +271,7 @@ namespace ServiciosMovilkes.Manager
             List<Favorite> lista = new List<Favorite>();
             try
             {
-                string sql = "Select Id,CustomerId,SpecialistId,Hidden from Favorites where SpecialistId = @specialistId";
+                string sql = "Select Id,Hidden,CustomerId,SpecialistId from Favorites where SpecialistId = @specialistId";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@specialistId", System.Data.SqlDbType.NVarChar).Value = id;
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
