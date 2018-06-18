@@ -167,9 +167,9 @@ namespace ServiciosMovilkes.Manager
             {
                 string sql = "Insert into Specialists(Login,Password,Names,"+
                     "LastNames,Email,CompanyName,ServiceDescription,DocumentTypeId,DocumentNumber,"+
-                    "PhoneNumber,Facebook,WebSit,Address,Reference,Latitude,"+
-                    "Longitude,Acredited,Membership,Rate,Online,State)"+ 
-                    " output INSERTED.Id values(@login,@password,@names,@lastnames,@companyname,@description,@doctype,@docnumber,"+
+                    "PhoneNumber,Facebook,WebSite,Address,Reference,Latitude,"+
+                    "Longitude,Accredited,Membership,Rate,Online,State)"+ 
+                    " output INSERTED.Id values(@login,@password,@names,@lastnames,@email,@companyname,@description,@doctype,@docnumber,"+
                     "@phone,@facebook,@web,@address,@reference,@latitud,@longitud,@acredited,@membership,@rate,@online,@state)";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = spe.Login;
