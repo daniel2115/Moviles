@@ -130,6 +130,25 @@ namespace ServiciosMovilkes.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/specialists/{id:int}/favorites/{favoriteid:int}")]
+        public IHttpActionResult GetUniqueFavorite(int id, int favoriteid)
+        {
+            try
+            {
+                FavoriteManager manager = new FavoriteManager();
+                Favorite favorite = manager.Obtener(favoriteid);
+                if (favorite.SpecialistId == id)
+                return Ok(favorite);
+                else
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost]
         [Route("api/specialists/{id:int}/favorites")]
         public IHttpActionResult PostFavorite(int id, [FromBody]Favorite favorite)
@@ -215,6 +234,26 @@ namespace ServiciosMovilkes.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/specialists/{id:int}/specialisttags/{specialisttagid:int}")]
+        public IHttpActionResult GetUniqueSpecTag(int id, int specialisttagid)
+        {
+            try
+            {
+                SpecialistTagManager manager = new SpecialistTagManager();
+                SpecialistTag specialisttag = manager.Obtener(specialisttagid);
+                if (specialisttag.SpecialistId == id)
+                    return Ok(specialisttag);
+                else
+                    return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
+
         [HttpPost]
         [Route("api/specialists/{id:int}/specialisttags")]
         public IHttpActionResult PostSpecTag(int id, [FromBody]SpecialistTag spectag)
@@ -244,7 +283,7 @@ namespace ServiciosMovilkes.Controllers
                 SpecialistTag temp = manager.Obtener(specialisttagid);
                 if (temp.SpecialistId == id)
                 {
-                    SpecialistTag result = manager.Editar(specialisttagid, esp);
+                    SpecialistTag result = manager.Editar(specialisttagid, esp.TagId);
                     if (result != null)
                         return Ok();
                     else return BadRequest();
@@ -267,6 +306,25 @@ namespace ServiciosMovilkes.Controllers
                 SpecialistManager manager = new SpecialistManager();
                 List<Quotation> lista = manager.Quotations(id);
                 return Ok(lista);
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        [Route("api/specialists/{id:int}/quotations/{quotationsid:int}")]
+        public IHttpActionResult GetQuotation(int id, int quotationsid)
+        {
+            try
+            {
+                QuotationManager manager = new QuotationManager();
+                Quotation quotation = manager.Obtener(id);
+                if (quotation.SpecialistId == id)
+                    return Ok(quotation);
+                else
+                    return BadRequest();
             }
             catch (Exception e)
             {

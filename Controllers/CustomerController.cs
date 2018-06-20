@@ -128,6 +128,25 @@ namespace ServiciosMovilkes.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("api/customers/{id:int}/favorites/{favoriteid:int}")]
+        public IHttpActionResult GetUniqueFavorite(int id, int favoriteid)
+        {
+            try
+            {
+                FavoriteManager manager = new FavoriteManager();
+                Favorite favorito = manager.Obtener(favoriteid);
+                if (favorito.CustomerId == id)
+                    return Ok(favorito);          
+                else 
+                    return BadRequest();               
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
         [HttpPost]
         [Route("api/customers/{id:int}/favorites")]
         public IHttpActionResult PostFavorite(int id,[FromBody]Favorite favorite)
@@ -272,7 +291,24 @@ namespace ServiciosMovilkes.Controllers
             }
         }
 
-
+        [HttpGet]
+        [Route("api/customers/{id:int}/problems/{problemid:int}")]
+        public IHttpActionResult GetUniqueProblem(int id, int problemid)
+        {
+            try
+            {
+                ProblemManager manager = new ProblemManager();
+                Problem problem = manager.Obtener(problemid);
+                if(problem.CustomerId == 2)
+                return Ok(problem);
+                else
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
 
     }
 }

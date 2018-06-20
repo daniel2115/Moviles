@@ -16,7 +16,7 @@ namespace ServiciosMovilkes.Manager
             List<Specialist> lista = new List<Specialist>();
             try
             {
-                string sql = "select Id,Login,Password,Names,LastNames,"+
+                string sql = "select Id,Login,Names,LastNames,"+
                 "Email,CompanyName,ServiceDescription,"+
                 "DocumentTypeId,DocumentNumber,PhoneNumber,"+
                 "Facebook,Website,Address,Reference,Latitude,"+
@@ -30,26 +30,25 @@ namespace ServiciosMovilkes.Manager
                     Specialist spe = new Specialist();
                     spe.Id = reader.GetInt32(0);
                     spe.Login = reader.GetString(1);
-                    spe.Password = reader.GetString(2);
-                    spe.Name = reader.GetString(3);
-                    spe.LastName = reader.GetString(4);
-                    spe.Email = reader.GetString(5);
-                    spe.CompanyName = reader.GetString(6);
-                    spe.ServiceDescription = reader.GetString(7);
-                    spe.DocumentTypeId = reader.GetInt32(8);
-                    spe.DocumentNumber = reader.GetString(9);
-                    spe.PhoneNumber = reader.GetString(10);
-                    spe.Facebook = reader.GetString(11);
-                    spe.WebSite = reader.GetString(12);
-                    spe.Address = reader.GetString(13);
-                    spe.Reference = reader.GetString(14);
-                    spe.Latitude = reader.GetDecimal(15);
-                    spe.Longitude = reader.GetDecimal(16);
-                    spe.Acredited = reader.GetBoolean(17);
-                    spe.MemberShip = reader.GetBoolean(18);
-                    spe.Rate = reader.GetDecimal(19);
-                    spe.Online = reader.GetBoolean(20);
-                    spe.State = reader.GetBoolean(21);                 
+                    spe.Name = reader.GetString(2);
+                    spe.LastName = reader.GetString(3);
+                    spe.Email = reader.GetString(4);
+                    spe.CompanyName = reader.GetString(5);
+                    spe.ServiceDescription = reader.GetString(6);
+                    spe.DocumentTypeId = reader.GetInt32(7);
+                    spe.DocumentNumber = reader.GetString(8);
+                    spe.PhoneNumber = reader.GetString(9);
+                    spe.Facebook = reader.GetString(10);
+                    spe.WebSite = reader.GetString(11);
+                    spe.Address = reader.GetString(12);
+                    spe.Reference = reader.GetString(13);
+                    spe.Latitude = reader.GetDecimal(14);
+                    spe.Longitude = reader.GetDecimal(15);
+                    spe.Acredited = reader.GetBoolean(16);
+                    spe.MemberShip = reader.GetBoolean(17);
+                    spe.Rate = reader.GetDecimal(18);
+                    spe.Online = reader.GetBoolean(19);
+                    spe.State = reader.GetBoolean(20);                 
                     lista.Add(spe);
                 }
                 reader.Close();

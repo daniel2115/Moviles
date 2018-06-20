@@ -261,7 +261,7 @@ namespace ServiciosMovilkes.Manager
             List<Problem> lista = new List<Problem>();
             try
             {
-                string sql = "select Id,CustomerId,Title,Description,State from Problems where Id = @problem";
+                string sql = "select Id,CustomerId,Title,Description,State from Problems where CustomerId = @problem";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@problem", System.Data.SqlDbType.NVarChar).Value = id;
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);

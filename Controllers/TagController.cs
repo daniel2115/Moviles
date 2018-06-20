@@ -120,7 +120,7 @@ namespace ServiciosMovilkes.Controllers
                 SpecialistTagManager manager = new SpecialistTagManager();
                 SpecialistTag temp = manager.Obtener(spectagid);
                 if(temp.TagId == id){
-                    SpecialistTag result = manager.Editar(spectagid, esp);
+                    SpecialistTag result = manager.Editar(spectagid, esp.TagId);
                     if (result != null)
                         return Ok();
                     else return BadRequest();

@@ -87,18 +87,17 @@ namespace ServiciosMovilkes.Manager
                 con.Close();
             return result;
         }
-        public SpecialistTag Editar(int id, SpecialistTag spe)
+        public SpecialistTag Editar(int id, int tagid)
         {
             SpecialistTag result = null;
             SqlConnection con = new SqlConnection(Resource.CadenaConexion);
             con.Open();
             try
             {
-                string sql = "Update SpecialistTags set TagId = @tgd,SpecialistId = @specialist output INSERTED.Id where Id = @id";
+                string sql = "Update SpecialistTags set TagId = @tgd output INSERTED.Id where Id = @id";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@tgd", System.Data.SqlDbType.Int).Value= spe.TagId;
-                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.SpecialistId;
-                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = spe.Id;
+                cmd.Parameters.Add("@tgd", System.Data.SqlDbType.Int).Value = tagid;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
