@@ -65,3 +65,4 @@ C:\Users\Daniel\Desktop\ServiciosMovilesBack\ServiciosMovilkes\bin\System.Web.We
 C:\Users\Daniel\Desktop\ServiciosMovilesBack\ServiciosMovilkes\bin\Antlr3.Runtime.pdb
 C:\Users\Daniel\Desktop\ServiciosMovilesBack\ServiciosMovilkes\obj\Debug\ServiciosMovilkes.dll
 C:\Users\Daniel\Desktop\ServiciosMovilesBack\ServiciosMovilkes\obj\Debug\ServiciosMovilkes.pdb
+C:\Users\Daniel\Desktop\ServiciosMovilesBack\ServiciosMovilkes\obj\Debug\ServiciosMovilkes.csprojResolveAssemblyReference.cache

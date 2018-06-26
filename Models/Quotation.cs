@@ -7,20 +7,20 @@ namespace ServiciosMovilkes.Models
 {
     public class Quotation
     {
-        public int Id { get; set; }
-        public int ProblemId { get; set; }
-        public int SpecialistId { get; set; }
-        public String Description { get; set; }
-        public Decimal Price { get; set; }
-        public Byte EstimatedTime { get; set; }
-        public Boolean IncludesMaterial { get; set; }
-        public Byte State { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime FinishDate { get; set; }
-        public Decimal FinalPrice { get; set; }
-        public Decimal SpecialistRate { get; set; }
-        public String SpecialistComment { get; set; }
-        public Decimal CustomerRate { get; set; }
-        public String CustomerComment { get; set; }
+        public int id { get; set; }
+        public int problemId { get; set; }
+        public int specialistId { get; set; }
+        public String description { get; set; }
+        public Decimal price { get; set; }
+        public Byte estimatedTime { get; set; }
+        public Boolean includesMaterial { get; set; }
+        public Byte state { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime finishDate { get; set; }
+        public Decimal finalPrice { get; set; }
+        public Decimal specialistRate { get; set; }
+        public String specialistComment { get; set; }
+        public Decimal customerRate { get; set; }
+        public String customerComment { get; set; }
     }
 }

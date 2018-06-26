@@ -22,9 +22,9 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     SpecialistTag spe = new SpecialistTag();
-                    spe.Id = reader.GetInt32(0);
-                    spe.TagId = reader.GetInt32(1);
-                    spe.SpecialistId = reader.GetInt32(2);
+                    spe.id = reader.GetInt32(0);
+                    spe.tagId = reader.GetInt32(1);
+                    spe.specialistId = reader.GetInt32(2);
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -50,9 +50,9 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 spe = new SpecialistTag();
-                spe.Id = reader.GetInt32(0);
-                spe.TagId = reader.GetInt32(1);
-                spe.SpecialistId = reader.GetInt32(2);
+                spe.id = reader.GetInt32(0);
+                spe.tagId = reader.GetInt32(1);
+                spe.specialistId = reader.GetInt32(2);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -69,8 +69,8 @@ namespace ServiciosMovilkes.Manager
                 string sql = "Insert into SpecialistTags(TagId,specialistId) output INSERTED.Id values(@tgd,@specialist)";
                   
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@tgd", System.Data.SqlDbType.Int).Value = spe.TagId;
-                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.SpecialistId;
+                cmd.Parameters.Add("@tgd", System.Data.SqlDbType.Int).Value = spe.tagId;
+                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialistId;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {

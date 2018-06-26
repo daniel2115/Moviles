@@ -14,7 +14,10 @@ namespace ServiciosMovilkes.Controllers
     public class SpecialistTagController : ApiController
     {
         public string ViewRouteName { get; set; }
-
+        struct GetSpecialistTags
+        {
+            public List<SpecialistTag> specialisttags;
+        }
         //SpecTag:
 
         [HttpGet]
@@ -25,7 +28,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistTagManager manager = new SpecialistTagManager();
                 List<SpecialistTag> lista = manager.Obtener();
-                    return Ok(lista);
+                GetSpecialistTags temp;
+                temp.specialisttags = lista;
+                return Ok(temp);
             }catch (Exception e)
             {
                 return NotFound();

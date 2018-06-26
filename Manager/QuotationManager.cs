@@ -27,21 +27,21 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 spe = new Quotation();
-                spe.Id = reader.GetInt32(0);
-                spe.ProblemId = reader.GetInt32(1);
-                spe.SpecialistId = reader.GetInt32(2);
-                spe.Description = reader.GetString(3);
-                spe.Price = reader.GetDecimal(4);
-                spe.EstimatedTime = reader.GetByte(5);
-                spe.IncludesMaterial = reader.GetBoolean(6);
-                spe.State = reader.GetByte(7);
-                spe.StartDate = reader.GetDateTime(8);
-                spe.FinishDate = reader.GetDateTime(9);
-                spe.FinalPrice = reader.GetDecimal(10);
-                spe.SpecialistRate = reader.GetDecimal(11);
-                spe.SpecialistComment = reader.GetString(12);
-                spe.CustomerRate = reader.GetDecimal(13);
-                spe.CustomerComment = reader.GetString(14);
+                spe.id = reader.GetInt32(0);
+                spe.problemId = reader.GetInt32(1);
+                spe.specialistId = reader.GetInt32(2);
+                spe.description = reader.GetString(3);
+                spe.price = reader.GetDecimal(4);
+                spe.estimatedTime = reader.GetByte(5);
+                spe.includesMaterial = reader.GetBoolean(6);
+                spe.state = reader.GetByte(7);
+                spe.startDate = reader.GetDateTime(8);
+                spe.finishDate = reader.GetDateTime(9);
+                spe.finalPrice = reader.GetDecimal(10);
+                spe.specialistRate = reader.GetDecimal(11);
+                spe.specialistComment = reader.GetString(12);
+                spe.customerRate = reader.GetDecimal(13);
+                spe.customerComment = reader.GetString(14);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -62,20 +62,20 @@ namespace ServiciosMovilkes.Manager
                 ",@specialistrate,@specialistcomment,@customerrate,@customercomment)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.ProblemId;
-                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.SpecialistId;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.Description;
-                cmd.Parameters.Add("@price", System.Data.SqlDbType.Decimal).Value = spe.Price;
-                cmd.Parameters.Add("@estimatedtime", System.Data.SqlDbType.Bit).Value = spe.EstimatedTime;
-                cmd.Parameters.Add("@includesmaterials", System.Data.SqlDbType.Bit).Value = spe.IncludesMaterial;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State;
-                cmd.Parameters.Add("@startdate", System.Data.SqlDbType.DateTime).Value = spe.StartDate;
-                cmd.Parameters.Add("@finishdate", System.Data.SqlDbType.DateTime).Value = spe.FinishDate;
-                cmd.Parameters.Add("@finalprice", System.Data.SqlDbType.Decimal).Value = spe.FinalPrice;
-                cmd.Parameters.Add("@specialistrate", System.Data.SqlDbType.Decimal).Value = spe.SpecialistRate;
-                cmd.Parameters.Add("@specialistcomment", System.Data.SqlDbType.VarChar).Value = spe.SpecialistComment;
-                cmd.Parameters.Add("@customerrate", System.Data.SqlDbType.Decimal).Value = spe.CustomerRate;
-                cmd.Parameters.Add("@customercomment", System.Data.SqlDbType.VarChar).Value = spe.CustomerComment;  
+                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.problemId;
+                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.specialistId;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.description;
+                cmd.Parameters.Add("@price", System.Data.SqlDbType.Decimal).Value = spe.price;
+                cmd.Parameters.Add("@estimatedtime", System.Data.SqlDbType.Bit).Value = spe.estimatedTime;
+                cmd.Parameters.Add("@includesmaterials", System.Data.SqlDbType.Bit).Value = spe.includesMaterial;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state;
+                cmd.Parameters.Add("@startdate", System.Data.SqlDbType.DateTime).Value = spe.startDate;
+                cmd.Parameters.Add("@finishdate", System.Data.SqlDbType.DateTime).Value = spe.finishDate;
+                cmd.Parameters.Add("@finalprice", System.Data.SqlDbType.Decimal).Value = spe.finalPrice;
+                cmd.Parameters.Add("@specialistrate", System.Data.SqlDbType.Decimal).Value = spe.specialistRate;
+                cmd.Parameters.Add("@specialistcomment", System.Data.SqlDbType.VarChar).Value = spe.specialistComment;
+                cmd.Parameters.Add("@customerrate", System.Data.SqlDbType.Decimal).Value = spe.customerRate;
+                cmd.Parameters.Add("@customercomment", System.Data.SqlDbType.VarChar).Value = spe.customerComment;  
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
@@ -106,20 +106,20 @@ namespace ServiciosMovilkes.Manager
                     "output INSERTED.Id where Id = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.ProblemId;
-                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.SpecialistId;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.Description;
-                cmd.Parameters.Add("@price", System.Data.SqlDbType.Decimal).Value = spe.Price;
-                cmd.Parameters.Add("@estimatedtime", System.Data.SqlDbType.Bit).Value = spe.EstimatedTime;
-                cmd.Parameters.Add("@includesmaterials", System.Data.SqlDbType.Bit).Value = spe.IncludesMaterial;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State;
-                cmd.Parameters.Add("@startdate", System.Data.SqlDbType.DateTime).Value = spe.StartDate;
-                cmd.Parameters.Add("@finishdate", System.Data.SqlDbType.DateTime).Value = spe.FinishDate;
-                cmd.Parameters.Add("@finalprice", System.Data.SqlDbType.Decimal).Value = spe.FinalPrice;
-                cmd.Parameters.Add("@specialistrate", System.Data.SqlDbType.Decimal).Value = spe.SpecialistRate;
-                cmd.Parameters.Add("@specialistcomment", System.Data.SqlDbType.VarChar).Value = spe.SpecialistComment;
-                cmd.Parameters.Add("@customerrate", System.Data.SqlDbType.Decimal).Value = spe.CustomerRate;
-                cmd.Parameters.Add("@customercomment", System.Data.SqlDbType.VarChar).Value = spe.CustomerComment;  
+                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.problemId;
+                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.specialistId;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.description;
+                cmd.Parameters.Add("@price", System.Data.SqlDbType.Decimal).Value = spe.price;
+                cmd.Parameters.Add("@estimatedtime", System.Data.SqlDbType.Bit).Value = spe.estimatedTime;
+                cmd.Parameters.Add("@includesmaterials", System.Data.SqlDbType.Bit).Value = spe.includesMaterial;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state;
+                cmd.Parameters.Add("@startdate", System.Data.SqlDbType.DateTime).Value = spe.startDate;
+                cmd.Parameters.Add("@finishdate", System.Data.SqlDbType.DateTime).Value = spe.finishDate;
+                cmd.Parameters.Add("@finalprice", System.Data.SqlDbType.Decimal).Value = spe.finalPrice;
+                cmd.Parameters.Add("@specialistrate", System.Data.SqlDbType.Decimal).Value = spe.specialistRate;
+                cmd.Parameters.Add("@specialistcomment", System.Data.SqlDbType.VarChar).Value = spe.specialistComment;
+                cmd.Parameters.Add("@customerrate", System.Data.SqlDbType.Decimal).Value = spe.customerRate;
+                cmd.Parameters.Add("@customercomment", System.Data.SqlDbType.VarChar).Value = spe.customerComment;  
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
@@ -139,7 +139,7 @@ namespace ServiciosMovilkes.Manager
         public Quotation Eliminar(int id)
         {
             Quotation temp = Obtener(id);
-            temp.State = 0;
+            temp.state = 0;
             return Editar(id, temp);
         }
         public List<Additional> Additional(int id) {
@@ -156,11 +156,11 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Additional spe = new Additional();
-                    spe.Id = reader.GetInt32(0);
-                    spe.QuotationId = reader.GetInt32(1);
-                    spe.Price = reader.GetDecimal(2);
-                    spe.Description = reader.GetString(3);
-                    spe.State = reader.GetByte(4);
+                    spe.id = reader.GetInt32(0);
+                    spe.quotationId = reader.GetInt32(1);
+                    spe.price = reader.GetDecimal(2);
+                    spe.description = reader.GetString(3);
+                    spe.state = reader.GetByte(4);
                     lista.Add(spe);
                 }
                 reader.Close();

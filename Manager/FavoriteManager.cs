@@ -22,10 +22,10 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Favorite spe = new Favorite();
-                    spe.Id = reader.GetInt32(0);
-                    spe.Hidden = reader.GetBoolean(1);
-                    spe.CustomerId = reader.GetInt32(2);
-                    spe.SpecialistId = reader.GetInt32(3);
+                    spe.id = reader.GetInt32(0);
+                    spe.hidden = reader.GetBoolean(1);
+                    spe.customerId = reader.GetInt32(2);
+                    spe.specialistId = reader.GetInt32(3);
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -51,10 +51,10 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 spe = new Favorite();
-                spe.Id = reader.GetInt32(0);
-                spe.Hidden = reader.GetBoolean(1);
-                spe.CustomerId = reader.GetInt32(2);
-                spe.SpecialistId = reader.GetInt32(3);
+                spe.id = reader.GetInt32(0);
+                spe.hidden = reader.GetBoolean(1);
+                spe.customerId = reader.GetInt32(2);
+                spe.specialistId = reader.GetInt32(3);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -71,9 +71,9 @@ namespace ServiciosMovilkes.Manager
                 string sql = "Insert into Favorites(Hidden,CustomerId,SpecialistId) output INSERTED.Id values(@hidden,@customer,@specialist)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@hidden", System.Data.SqlDbType.Int).Value = spe.Hidden;
-                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.CustomerId;
-                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.SpecialistId;
+                cmd.Parameters.Add("@hidden", System.Data.SqlDbType.Int).Value = spe.hidden;
+                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.customerId;
+                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialistId;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
@@ -99,9 +99,9 @@ namespace ServiciosMovilkes.Manager
             {
                 string sql = "Update Favorites set Hidden = @hidden,CustomerId= @customer, SpecialistId = @specialist output INSERTED.Id where Id = @id";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@hidden", System.Data.SqlDbType.Bit).Value = spe.Hidden;
-                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.CustomerId;
-                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.SpecialistId;
+                cmd.Parameters.Add("@hidden", System.Data.SqlDbType.Bit).Value = spe.hidden;
+                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.customerId;
+                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialistId;
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
@@ -121,7 +121,7 @@ namespace ServiciosMovilkes.Manager
         public Favorite Eliminar(int id)
         {
             Favorite temp = Obtener(id);
-            temp.Hidden = true;
+            temp.hidden = true;
             return Editar(id, temp);
         }
     }

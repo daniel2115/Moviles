@@ -7,10 +7,10 @@ namespace ServiciosMovilkes.Models
 {
     public class Problem
     {
-        public int Id { get; set; }
-        public int CustomerId { get;set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public Byte State { get; set; }
+        public int id { get; set; }
+        public int customerId { get;set; }
+        public String title { get; set; }
+        public String description { get; set; }
+        public Byte state { get; set; }
     }
 }

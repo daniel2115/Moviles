@@ -7,27 +7,27 @@ namespace ServiciosMovilkes.Models
 {
     public class Specialist
     {
-        public int Id { get; set; }
-        public String Login { get; set; }
-        public String Password { get; set; }
-        public String Name { get; set; }
-        public String LastName { get; set; }
-        public String Email { get; set; }
-        public String CompanyName { get; set; }
-        public String ServiceDescription { get; set; }
-        public int DocumentTypeId { get; set; }
-        public String DocumentNumber { get; set; }
-        public String PhoneNumber { get; set; }
-        public String Facebook { get; set; }
-        public String WebSite { get; set; }
-        public String Address { get; set; }
-        public String Reference { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { set; get; }
-        public Boolean Acredited { get; set; }
-        public Boolean MemberShip { set; get; }
-        public decimal Rate { get; set; }
-        public Boolean Online { get; set; }
-        public Boolean State { get; set; }        
+        public int id { get; set; }
+        public String login { get; set; }
+        public String password { get; set; }
+        public String name { get; set; }
+        public String lastName { get; set; }
+        public String email { get; set; }
+        public String companyName { get; set; }
+        public String serviceDescription { get; set; }
+        public int documentTypeId { get; set; }
+        public String documentNumber { get; set; }
+        public String phoneNumber { get; set; }
+        public String facebook { get; set; }
+        public String webSite { get; set; }
+        public String address { get; set; }
+        public String reference { get; set; }
+        public decimal latitude { get; set; }
+        public decimal longitude { set; get; }
+        public Boolean acredited { get; set; }
+        public Boolean memberShip { set; get; }
+        public decimal rate { get; set; }
+        public Boolean online { get; set; }
+        public Boolean state { get; set; }        
     }
 }

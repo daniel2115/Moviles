@@ -7,7 +7,7 @@ namespace ServiciosMovilkes.Models
 {
     public class DocumentType
     {
-        public int Id { set; get; }
-        public String Description { set; get; }
+        public int id { set; get; }
+        public String description { set; get; }
     }   
 }

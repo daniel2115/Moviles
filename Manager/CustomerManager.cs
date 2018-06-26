@@ -25,21 +25,21 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Customer spe = new Customer();
-                    spe.Id = reader.GetInt32(0);
-                    spe.Login = reader.GetString(1);
-                    spe.Name = reader.GetString(2);
-                    spe.LastName = reader.GetString(3);
-                    spe.Email = reader.GetString(4);
-                    spe.DocumentTypeId = reader.GetInt32(5);
-                    spe.DocumentNumber = reader.GetString(6);
-                    spe.PhoneNumber = reader.GetString(7);
-                    spe.Address = reader.GetString(8);
-                    spe.Reference = reader.GetString(9);
-                    spe.Latitude = reader.GetDecimal(10);
-                    spe.Longitude = reader.GetDecimal(11);
-                    spe.Rate = reader.GetDecimal(12);
-                    spe.Online = reader.GetBoolean(13);
-                    spe.State = reader.GetBoolean(14);
+                    spe.id = reader.GetInt32(0);
+                    spe.login = reader.GetString(1);
+                    spe.name = reader.GetString(2);
+                    spe.lastName = reader.GetString(3);
+                    spe.email = reader.GetString(4);
+                    spe.documentTypeId = reader.GetInt32(5);
+                    spe.documentNumber = reader.GetString(6);
+                    spe.phoneNumber = reader.GetString(7);
+                    spe.address = reader.GetString(8);
+                    spe.reference = reader.GetString(9);
+                    spe.latitude = reader.GetDecimal(10);
+                    spe.longitude = reader.GetDecimal(11);
+                    spe.rate = reader.GetDecimal(12);
+                    spe.online = reader.GetBoolean(13);
+                    spe.state = reader.GetBoolean(14);
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -68,22 +68,22 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 spe = new Customer();
-                spe.Id = reader.GetInt32(0);
-                spe.Login = reader.GetString(1);
-                spe.Password = reader.GetString(2);
-                spe.Name = reader.GetString(3);
-                spe.LastName = reader.GetString(4);
-                spe.Email = reader.GetString(5);
-                spe.DocumentTypeId = reader.GetInt32(6);
-                spe.DocumentNumber = reader.GetString(7);
-                spe.PhoneNumber = reader.GetString(8);
-                spe.Address = reader.GetString(9);
-                spe.Reference = reader.GetString(10);
-                spe.Latitude = reader.GetDecimal(11);
-                spe.Longitude = reader.GetDecimal(12);
-                spe.Rate = reader.GetDecimal(13);
-                spe.Online = reader.GetBoolean(14);
-                spe.State = reader.GetBoolean(15);
+                spe.id = reader.GetInt32(0);
+                spe.login = reader.GetString(1);
+                spe.password = reader.GetString(2);
+                spe.name = reader.GetString(3);
+                spe.lastName = reader.GetString(4);
+                spe.email = reader.GetString(5);
+                spe.documentTypeId = reader.GetInt32(6);
+                spe.documentNumber = reader.GetString(7);
+                spe.phoneNumber = reader.GetString(8);
+                spe.address = reader.GetString(9);
+                spe.reference = reader.GetString(10);
+                spe.latitude = reader.GetDecimal(11);
+                spe.longitude = reader.GetDecimal(12);
+                spe.rate = reader.GetDecimal(13);
+                spe.online = reader.GetBoolean(14);
+                spe.state = reader.GetBoolean(15);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -102,28 +102,28 @@ namespace ServiciosMovilkes.Manager
                 "Login = @EmailClient and Password = @clientPassword";
 
             SqlCommand cmd = new SqlCommand(sql, con);
-            cmd.Parameters.Add("@EmailClient", System.Data.SqlDbType.NVarChar).Value = obj.Login;
-            cmd.Parameters.Add("@clientPassword", System.Data.SqlDbType.NVarChar).Value = obj.Password;
+            cmd.Parameters.Add("@EmailClient", System.Data.SqlDbType.NVarChar).Value = obj.login;
+            cmd.Parameters.Add("@clientPassword", System.Data.SqlDbType.NVarChar).Value = obj.password;
             SqlDataReader reader =
                 cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
             if (reader.Read())
             {
                 spe = new Customer();
-                spe.Id = reader.GetInt32(0);
-                spe.Login = reader.GetString(1);
-                spe.Name = reader.GetString(2);
-                spe.LastName = reader.GetString(3);
-                spe.Email = reader.GetString(4);
-                spe.DocumentTypeId = reader.GetInt32(5);
-                spe.DocumentNumber = reader.GetString(6);
-                spe.PhoneNumber = reader.GetString(7);
-                spe.Address = reader.GetString(8);
-                spe.Reference = reader.GetString(9);
-                spe.Latitude = reader.GetDecimal(10);
-                spe.Longitude = reader.GetDecimal(11);
-                spe.Rate = reader.GetDecimal(12);
-                spe.Online = reader.GetBoolean(13);
-                spe.State = reader.GetBoolean(14);
+                spe.id = reader.GetInt32(0);
+                spe.login = reader.GetString(1);
+                spe.name = reader.GetString(2);
+                spe.lastName = reader.GetString(3);
+                spe.email = reader.GetString(4);
+                spe.documentTypeId = reader.GetInt32(5);
+                spe.documentNumber = reader.GetString(6);
+                spe.phoneNumber = reader.GetString(7);
+                spe.address = reader.GetString(8);
+                spe.reference = reader.GetString(9);
+                spe.latitude = reader.GetDecimal(10);
+                spe.longitude = reader.GetDecimal(11);
+                spe.rate = reader.GetDecimal(12);
+                spe.online = reader.GetBoolean(13);
+                spe.state = reader.GetBoolean(14);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -144,22 +144,22 @@ namespace ServiciosMovilkes.Manager
                 "@documentnumber,@phonenumber,@address,@reference,@latitude,@longitude,@rate,@online,@state)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = spe.Login;
-                cmd.Parameters.Add("@password", System.Data.SqlDbType.VarChar).Value = spe.Password;
-                cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = spe.Name;
-                cmd.Parameters.Add("@lastname", System.Data.SqlDbType.VarChar).Value = spe.LastName;
-                cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.Email;
-                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.DocumentTypeId;
-                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.DocumentNumber;
-                cmd.Parameters.Add("@phonenumber", System.Data.SqlDbType.Char).Value = spe.PhoneNumber;          
-                cmd.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = spe.Address;
-                cmd.Parameters.Add("@reference", System.Data.SqlDbType.VarChar).Value = spe.Reference;
-                cmd.Parameters.Add("@latitude", System.Data.SqlDbType.Decimal).Value = spe.Latitude;
-                cmd.Parameters.Add("@longitude", System.Data.SqlDbType.Decimal).Value = spe.Longitude;
-                cmd.Parameters.Add("@rate", System.Data.SqlDbType.Decimal).Value = spe.Rate;
-                cmd.Parameters.Add("@online", System.Data.SqlDbType.Bit).Value = spe.Online;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State;
-                    int modified = (int)cmd.ExecuteScalar();
+                cmd.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = spe.login;
+                cmd.Parameters.Add("@password", System.Data.SqlDbType.VarChar).Value = spe.password;
+                cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = spe.name;
+                cmd.Parameters.Add("@lastname", System.Data.SqlDbType.VarChar).Value = spe.lastName;
+                cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.email;
+                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.documentTypeId;
+                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.documentNumber;
+                cmd.Parameters.Add("@phonenumber", System.Data.SqlDbType.Char).Value = spe.phoneNumber;          
+                cmd.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = spe.address;
+                cmd.Parameters.Add("@reference", System.Data.SqlDbType.VarChar).Value = spe.reference;
+                cmd.Parameters.Add("@latitude", System.Data.SqlDbType.Decimal).Value = spe.latitude;
+                cmd.Parameters.Add("@longitude", System.Data.SqlDbType.Decimal).Value = spe.longitude;
+                cmd.Parameters.Add("@rate", System.Data.SqlDbType.Decimal).Value = spe.rate;
+                cmd.Parameters.Add("@online", System.Data.SqlDbType.Bit).Value = spe.online;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state;
+                int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
                     result = Obtener(modified);
@@ -188,21 +188,21 @@ namespace ServiciosMovilkes.Manager
                     "Longitude = @longitude, Rate = @rate, Online = @online, @State = state output INSERTED.Id where Id = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = spe.Login;
-                cmd.Parameters.Add("@password", System.Data.SqlDbType.VarChar).Value = spe.Password;
-                cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = spe.Name;
-                cmd.Parameters.Add("@lastname", System.Data.SqlDbType.VarChar).Value = spe.LastName;
-                cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.Email;
-                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.DocumentTypeId;
-                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.DocumentNumber;
-                cmd.Parameters.Add("@phonenumber", System.Data.SqlDbType.Char).Value = spe.PhoneNumber;
-                cmd.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = spe.Address;
-                cmd.Parameters.Add("@reference", System.Data.SqlDbType.VarChar).Value = spe.Reference;
-                cmd.Parameters.Add("@latitude", System.Data.SqlDbType.Decimal).Value = spe.Latitude;
-                cmd.Parameters.Add("@longitude", System.Data.SqlDbType.Decimal).Value = spe.Longitude;
-                cmd.Parameters.Add("@rate", System.Data.SqlDbType.Decimal).Value = spe.Rate;
-                cmd.Parameters.Add("@online", System.Data.SqlDbType.Bit).Value = spe.Online;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State;
+                cmd.Parameters.Add("@login", System.Data.SqlDbType.VarChar).Value = spe.login;
+                cmd.Parameters.Add("@password", System.Data.SqlDbType.VarChar).Value = spe.password;
+                cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = spe.name;
+                cmd.Parameters.Add("@lastname", System.Data.SqlDbType.VarChar).Value = spe.lastName;
+                cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.email;
+                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.documentTypeId;
+                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.documentNumber;
+                cmd.Parameters.Add("@phonenumber", System.Data.SqlDbType.Char).Value = spe.phoneNumber;
+                cmd.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = spe.address;
+                cmd.Parameters.Add("@reference", System.Data.SqlDbType.VarChar).Value = spe.reference;
+                cmd.Parameters.Add("@latitude", System.Data.SqlDbType.Decimal).Value = spe.latitude;
+                cmd.Parameters.Add("@longitude", System.Data.SqlDbType.Decimal).Value = spe.longitude;
+                cmd.Parameters.Add("@rate", System.Data.SqlDbType.Decimal).Value = spe.rate;
+                cmd.Parameters.Add("@online", System.Data.SqlDbType.Bit).Value = spe.online;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state;
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
@@ -222,7 +222,7 @@ namespace ServiciosMovilkes.Manager
         public Customer Eliminar(int id)
         {
             Customer temp = Obtener(id);
-            temp.State = false;
+            temp.state = false;
             return Editar(id, temp);
         }
         public List<Favorite> Favorite(int id)
@@ -239,10 +239,10 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Favorite spe = new Favorite();
-                    spe.Id = reader.GetInt32(0);
-                    spe.Hidden = reader.GetBoolean(1);
-                    spe.CustomerId = reader.GetInt32(2);
-                    spe.SpecialistId = reader.GetInt32(3);
+                    spe.id = reader.GetInt32(0);
+                    spe.hidden = reader.GetBoolean(1);
+                    spe.customerId = reader.GetInt32(2);
+                    spe.specialistId = reader.GetInt32(3);
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -268,11 +268,11 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Problem spe = new Problem();
-                    spe.Id = reader.GetInt32(0);
-                    spe.CustomerId = reader.GetInt32(1);
-                    spe.Title = reader.GetString(2);
-                    spe.Description = reader.GetString(3);
-                    spe.State = reader.GetByte(4);
+                    spe.id = reader.GetInt32(0);
+                    spe.customerId = reader.GetInt32(1);
+                    spe.title = reader.GetString(2);
+                    spe.description = reader.GetString(3);
+                    spe.state = reader.GetByte(4);
                     lista.Add(spe);
                 }
                 reader.Close();

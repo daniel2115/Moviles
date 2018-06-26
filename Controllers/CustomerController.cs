@@ -8,6 +8,8 @@ using ServiciosMovilkes.Models;
 using ServiciosMovilkes.Manager;
 using System.Threading.Tasks;
 using System.Threading;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ServiciosMovilkes.Controllers
 {
@@ -15,8 +17,20 @@ namespace ServiciosMovilkes.Controllers
     {
         public string ViewRouteName { get; set; }
 
-        //Customer:
+        struct  GetCustomers {
+            public List<Customer> customers;    
+        }
+        struct GetFavorites
+        {
+            public List<Favorite> favorites;
+        }
 
+        struct GetProblems
+        {
+            public List<Problem> problems;
+        }
+
+        //Customer:
         [HttpGet]
         [Route("api/customers")]
         public IHttpActionResult GetCustomer()
@@ -24,7 +38,9 @@ namespace ServiciosMovilkes.Controllers
             try{
                 CustomerManager manager = new CustomerManager();
                 List<Customer> lista = manager.Obtener();
-                return Ok(lista);
+                GetCustomers temp;
+                temp.customers = lista;
+                return Ok(temp);
             }catch (Exception e)
             {
                 return NotFound();
@@ -58,7 +74,7 @@ namespace ServiciosMovilkes.Controllers
                 CustomerManager manager = new CustomerManager();
                 Customer result = manager.Insertar(client);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = client.Id })), client);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.id })), result);
                 else return BadRequest();
             }catch(Exception e){
                 return NotFound();
@@ -122,7 +138,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 CustomerManager manager = new CustomerManager();
                 List<Favorite> lista = manager.Favorite(id);
-                return Ok(lista);
+                GetFavorites temp;
+                temp.favorites = lista;
+                return Ok(temp);
             }catch(Exception e){
                 return NotFound();
             }
@@ -136,7 +154,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite favorito = manager.Obtener(favoriteid);
-                if (favorito.CustomerId == id)
+                if (favorito.customerId == id)
                     return Ok(favorito);          
                 else 
                     return BadRequest();               
@@ -154,10 +172,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 FavoriteManager manager = new FavoriteManager();
-                favorite.CustomerId = id;
+                favorite.customerId = id;
                 Favorite result = manager.Insertar(favorite);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = favorite.CustomerId })), favorite);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.customerId })), result);
                 else return BadRequest();
             }catch(Exception e){
                 return NotFound();
@@ -172,9 +190,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite temp = manager.Obtener(favoriteid);
-                if (temp.CustomerId == id)
+                if (temp.customerId == id)
                 {
-                    favorito.CustomerId = id;
+                    favorito.customerId = id;
                     Favorite result = manager.Editar(favoriteid, favorito);
                     if (result != null)
                         return Ok();
@@ -194,7 +212,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite temp = manager.Obtener(favoriteid);
-                if (temp.CustomerId == id)
+                if (temp.customerId == id)
                 {
                     Favorite result = manager.Eliminar(favoriteid);
                     if (result != null)
@@ -217,7 +235,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 CustomerManager manager = new CustomerManager();
                 List<Problem> lista = manager.Problem(id);
-                return Ok(lista);
+                GetProblems temp;
+                temp.problems = lista;
+                return Ok(temp);
             }
             catch (Exception e)
             {
@@ -232,10 +252,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 ProblemManager manager = new ProblemManager();
-                problem.CustomerId = id;
+                problem.customerId = id;
                 Problem result = manager.Insertar(problem);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = problem.CustomerId })), problem);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.customerId })), result);
                 else return BadRequest();
             }
             catch (Exception e)
@@ -252,9 +272,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 ProblemManager manager = new ProblemManager();
                 Problem temp = manager.Obtener(problemid);
-                if (temp.CustomerId == id)
+                if (temp.customerId == id)
                 {
-                    problem.CustomerId = id;
+                    problem.customerId = id;
                     Problem result = manager.Editar(problemid, problem);
                     if (result != null)
                         return Ok();
@@ -276,7 +296,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 ProblemManager manager = new ProblemManager();
                 Problem temp = manager.Obtener(problemid);
-                if (temp.CustomerId == id)
+                if (temp.customerId == id)
                 {
                     Problem result = manager.Eliminar(problemid);
                     if (result != null)
@@ -299,7 +319,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 ProblemManager manager = new ProblemManager();
                 Problem problem = manager.Obtener(problemid);
-                if(problem.CustomerId == 2)
+                if(problem.customerId == 2)
                 return Ok(problem);
                 else
                 return BadRequest();

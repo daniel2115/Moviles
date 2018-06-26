@@ -7,9 +7,9 @@ namespace ServiciosMovilkes.Models
 {
     public class Favorite
     {
-       public int Id {get;set;}
-       public int CustomerId{get;set;}
-       public int SpecialistId{get;set;}
-       public Boolean Hidden { get; set; }
+       public int id {get;set;}
+       public int customerId{get;set;}
+       public int specialistId{get;set;}
+       public Boolean hidden { get; set; }
     }
 }

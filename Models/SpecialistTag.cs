@@ -7,8 +7,8 @@ namespace ServiciosMovilkes.Models
 {
     public class SpecialistTag
     {
-        public int Id { get; set; }
-        public int TagId { get; set; }
-        public int SpecialistId { get; set; }
+        public int id { get; set; }
+        public int tagId { get; set; }
+        public int specialistId { get; set; }
     }
 }

@@ -7,21 +7,21 @@ namespace ServiciosMovilkes.Models
 {
     public class Customer
     {
-        public int Id { set; get; }
-        public String Login { get; set; }
-        public String Password { get; set; }
-        public String Name { get; set; }
-        public String LastName { get; set; }
-        public String Email { get; set; }
-        public int DocumentTypeId { get; set; }
-        public String DocumentNumber { get; set; }
-        public String PhoneNumber { get; set; }
-        public String Address { get; set; }
-        public String Reference { get; set; }
-        public Decimal Latitude { get; set; }
-        public Decimal Longitude { get; set; }
-        public Decimal Rate { get; set; }
-        public Boolean Online { get; set; }
-        public Boolean State { get; set; }
+        public int id { set; get; }
+        public String login { get; set; }
+        public String password { get; set; }
+        public String name { get; set; }
+        public String lastName { get; set; }
+        public String email { get; set; }
+        public int documentTypeId { get; set; }
+        public String documentNumber { get; set; }
+        public String phoneNumber { get; set; }
+        public String address { get; set; }
+        public String reference { get; set; }
+        public Decimal latitude { get; set; }
+        public Decimal longitude { get; set; }
+        public Decimal rate { get; set; }
+        public Boolean online { get; set; }
+        public Boolean state { get; set; }
     }
 }

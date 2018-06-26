@@ -23,11 +23,11 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 spe = new Additional();
-                spe.Id = reader.GetInt32(0);
-                spe.QuotationId = reader.GetInt32(1);
-                spe.Price = reader.GetDecimal(2);
-                spe.Description = reader.GetString(3);
-                spe.State = reader.GetByte(4);
+                spe.id = reader.GetInt32(0);
+                spe.quotationId = reader.GetInt32(1);
+                spe.price = reader.GetDecimal(2);
+                spe.description = reader.GetString(3);
+                spe.state = reader.GetByte(4);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -45,10 +45,10 @@ namespace ServiciosMovilkes.Manager
                 "values(@quotationid,@price,@description,@state)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.QuotationId;
-                cmd.Parameters.Add("@price", System.Data.SqlDbType.Int).Value = spe.Price;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.Description;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.State;
+                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.quotationId;
+                cmd.Parameters.Add("@price", System.Data.SqlDbType.Int).Value = spe.price;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.description;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.state;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
@@ -76,10 +76,10 @@ namespace ServiciosMovilkes.Manager
                     ",Description = @description,State = @state output INSERTED.Id where Id = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.QuotationId;
-                cmd.Parameters.Add("@price", System.Data.SqlDbType.Int).Value = spe.Price;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.Description;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.State;
+                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.quotationId;
+                cmd.Parameters.Add("@price", System.Data.SqlDbType.Int).Value = spe.price;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.description;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.state;
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
@@ -99,7 +99,7 @@ namespace ServiciosMovilkes.Manager
         public Additional Eliminar(int id)
         {
             Additional temp = Obtener(id);
-            temp.State = 0;
+            temp.state = 0;
             return Editar(id, temp);
         }
 

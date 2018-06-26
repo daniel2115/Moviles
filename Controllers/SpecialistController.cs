@@ -15,6 +15,26 @@ namespace ServiciosMovilkes.Controllers
     {
         public string ViewRouteName { get; set; }
 
+
+
+        struct GetSpecialists
+        {
+            public List<Specialist> specialists;
+        }
+        struct GetFavorites
+        {
+            public List<Favorite> favorites;
+        }
+
+        struct GetSpecialistTags
+        {
+            public List<SpecialistTag> specialistTags;
+        }
+
+        struct GetQuotations
+        {
+            public List<Quotation> quotations;
+        }
         //Specialist:
 
         [HttpGet]
@@ -25,7 +45,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistManager manager = new SpecialistManager();
                 List<Specialist> lista = manager.Obtener();
-                return Ok(lista);
+                GetSpecialists temp;
+                temp.specialists = lista;
+                return Ok(temp);
             }catch(Exception e){
                 return NotFound();
             }
@@ -57,7 +79,7 @@ namespace ServiciosMovilkes.Controllers
                 SpecialistManager manager = new SpecialistManager();
                 Specialist result = manager.Insertar(specialist);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = specialist.Id })), specialist);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.id })), result);              
                 else return BadRequest();
             }catch(Exception e){
                 return NotFound();
@@ -122,7 +144,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistManager manager = new SpecialistManager();
                 List<Favorite> lista = manager.Favorite(id);
-                return Ok(lista);
+                GetFavorites temp;
+                temp.favorites = lista;
+                return Ok(temp);
             }
             catch (Exception e)
             {
@@ -138,7 +162,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite favorite = manager.Obtener(favoriteid);
-                if (favorite.SpecialistId == id)
+                if (favorite.specialistId == id)
                 return Ok(favorite);
                 else
                 return BadRequest();
@@ -156,10 +180,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 FavoriteManager manager = new FavoriteManager();
-                favorite.SpecialistId = id;
+                favorite.specialistId = id;
                 Favorite result = manager.Insertar(favorite);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = favorite.SpecialistId })), favorite);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialistId })), result);
                 else return BadRequest();
             }
             catch (Exception e)
@@ -176,9 +200,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite temp = manager.Obtener(favoriteid);
-                if (temp.SpecialistId == id)
+                if (temp.specialistId == id)
                 {
-                    favorito.SpecialistId = id;
+                    favorito.specialistId = id;
                     Favorite result = manager.Editar(favoriteid, favorito);
                     if (result != null)
                         return Ok();
@@ -200,7 +224,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite temp = manager.Obtener(favoriteid);
-                if (temp.SpecialistId == id)
+                if (temp.specialistId == id)
                 {
                     Favorite result = manager.Eliminar(favoriteid);
                     if (result != null)
@@ -226,7 +250,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistManager manager = new SpecialistManager();
                 List<SpecialistTag> lista = manager.SpecialistTag(id);
-                return Ok(lista);
+                GetSpecialistTags temp;
+                temp.specialistTags = lista;
+                return Ok(temp);
             }
             catch (Exception e)
             {
@@ -242,7 +268,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistTagManager manager = new SpecialistTagManager();
                 SpecialistTag specialisttag = manager.Obtener(specialisttagid);
-                if (specialisttag.SpecialistId == id)
+                if (specialisttag.specialistId == id)
                     return Ok(specialisttag);
                 else
                     return BadRequest();
@@ -261,10 +287,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 SpecialistTagManager manager = new SpecialistTagManager();
-                spectag.SpecialistId = id;
+                spectag.specialistId = id;
                 SpecialistTag result = manager.Insertar(spectag);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = spectag.SpecialistId })), spectag);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialistId })), result);
                 else return BadRequest();
             }
             catch (Exception e)
@@ -281,9 +307,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistTagManager manager = new SpecialistTagManager();
                 SpecialistTag temp = manager.Obtener(specialisttagid);
-                if (temp.SpecialistId == id)
+                if (temp.specialistId == id)
                 {
-                    SpecialistTag result = manager.Editar(specialisttagid, esp.TagId);
+                    SpecialistTag result = manager.Editar(specialisttagid, esp.tagId);
                     if (result != null)
                         return Ok();
                     else return BadRequest();
@@ -305,7 +331,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistManager manager = new SpecialistManager();
                 List<Quotation> lista = manager.Quotations(id);
-                return Ok(lista);
+                GetQuotations temp;
+                temp.quotations = lista;
+                return Ok(temp);
             }
             catch (Exception e)
             {
@@ -321,7 +349,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 QuotationManager manager = new QuotationManager();
                 Quotation quotation = manager.Obtener(id);
-                if (quotation.SpecialistId == id)
+                if (quotation.specialistId == id)
                     return Ok(quotation);
                 else
                     return BadRequest();
@@ -339,10 +367,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 QuotationManager manager = new QuotationManager();
-                quotation.SpecialistId = id;
+                quotation.specialistId = id;
                 Quotation result = manager.Insertar(quotation);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = quotation.SpecialistId })), quotation);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialistId })), result);
                 else return BadRequest();
             }
             catch (Exception e)
@@ -359,9 +387,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 QuotationManager manager = new QuotationManager();
                 Quotation temp = manager.Obtener(quotationid);
-                if (temp.SpecialistId == id)
+                if (temp.specialistId == id)
                 {
-                    quotation.SpecialistId = id;
+                    quotation.specialistId = id;
                     Quotation result = manager.Editar(quotationid, quotation);
                     if (result != null)
                         return Ok();
@@ -383,7 +411,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 QuotationManager manager = new QuotationManager();
                 Quotation temp = manager.Obtener(quotationid);
-                if (temp.SpecialistId == id)
+                if (temp.specialistId == id)
                 {
                     Quotation result = manager.Eliminar(quotationid);
                     if (result != null)

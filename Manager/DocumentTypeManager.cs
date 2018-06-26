@@ -22,8 +22,8 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     DocumentType documenttypes = new DocumentType();
-                    documenttypes.Id = reader.GetInt32(0);
-                    documenttypes.Description = reader.GetString(1);
+                    documenttypes.id = reader.GetInt32(0);
+                    documenttypes.description = reader.GetString(1);
                     lista.Add(documenttypes);
                 }
                 reader.Close();
@@ -49,8 +49,8 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 documenttype = new DocumentType();
-                documenttype.Id = reader.GetInt32(0);
-                documenttype.Description = reader.GetString(1);
+                documenttype.id = reader.GetInt32(0);
+                documenttype.description = reader.GetString(1);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -67,7 +67,7 @@ namespace ServiciosMovilkes.Manager
                 string sql = "Insert into DocumentTypes(Description)" +
                     " output INSERTED.Id values(@description)";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = documenttypes.Description;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = documenttypes.description;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
@@ -93,7 +93,7 @@ namespace ServiciosMovilkes.Manager
             {
                 string sql = "Update DocumentType set Description = @description output INSERTED.Id where Id = @id";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = documenttypes.Description;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = documenttypes.description;
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
@@ -129,28 +129,28 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Specialist spe = new Specialist();
-                    spe.Id = reader.GetInt32(0);
-                    spe.Login = reader.GetString(1);
-                    spe.Password = reader.GetString(2);
-                    spe.Name = reader.GetString(3);
-                    spe.LastName = reader.GetString(4);
-                    spe.Email = reader.GetString(5);
-                    spe.CompanyName = reader.GetString(6);
-                    spe.ServiceDescription = reader.GetString(7);
-                    spe.DocumentTypeId = reader.GetInt32(8);
-                    spe.DocumentNumber = reader.GetString(9);
-                    spe.PhoneNumber = reader.GetString(10);
-                    spe.Facebook = reader.GetString(11);
-                    spe.WebSite = reader.GetString(12);
-                    spe.Address = reader.GetString(13);
-                    spe.Reference = reader.GetString(14);
-                    spe.Latitude = reader.GetDecimal(15);
-                    spe.Longitude = reader.GetDecimal(16);
-                    spe.Acredited = reader.GetBoolean(17);
-                    spe.MemberShip = reader.GetBoolean(18);
-                    spe.Rate = reader.GetDecimal(19);
-                    spe.Online = reader.GetBoolean(20);
-                    spe.State = reader.GetBoolean(21);
+                    spe.id = reader.GetInt32(0);
+                    spe.login = reader.GetString(1);
+                    spe.password = reader.GetString(2);
+                    spe.name = reader.GetString(3);
+                    spe.lastName = reader.GetString(4);
+                    spe.email = reader.GetString(5);
+                    spe.companyName = reader.GetString(6);
+                    spe.serviceDescription = reader.GetString(7);
+                    spe.documentTypeId = reader.GetInt32(8);
+                    spe.documentNumber = reader.GetString(9);
+                    spe.phoneNumber = reader.GetString(10);
+                    spe.facebook = reader.GetString(11);
+                    spe.webSite = reader.GetString(12);
+                    spe.address = reader.GetString(13);
+                    spe.reference = reader.GetString(14);
+                    spe.latitude = reader.GetDecimal(15);
+                    spe.longitude = reader.GetDecimal(16);
+                    spe.acredited = reader.GetBoolean(17);
+                    spe.memberShip = reader.GetBoolean(18);
+                    spe.rate = reader.GetDecimal(19);
+                    spe.online = reader.GetBoolean(20);
+                    spe.state = reader.GetBoolean(21);
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -180,21 +180,21 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Customer spe = new Customer();
-                    spe.Id = reader.GetInt32(0);
-                    spe.Login = reader.GetString(1);
-                    spe.Name = reader.GetString(2);
-                    spe.LastName = reader.GetString(3);
-                    spe.Email = reader.GetString(4);
-                    spe.DocumentTypeId = reader.GetInt32(5);
-                    spe.DocumentNumber = reader.GetString(6);
-                    spe.PhoneNumber = reader.GetString(7);
-                    spe.Address = reader.GetString(8);
-                    spe.Reference = reader.GetString(9);
-                    spe.Latitude = reader.GetDecimal(10);
-                    spe.Longitude = reader.GetDecimal(11);
-                    spe.Rate = reader.GetDecimal(12);
-                    spe.Online = reader.GetBoolean(13);
-                    spe.State = reader.GetBoolean(14);
+                    spe.id = reader.GetInt32(0);
+                    spe.login = reader.GetString(1);
+                    spe.name = reader.GetString(2);
+                    spe.lastName = reader.GetString(3);
+                    spe.email = reader.GetString(4);
+                    spe.documentTypeId = reader.GetInt32(5);
+                    spe.documentNumber = reader.GetString(6);
+                    spe.phoneNumber = reader.GetString(7);
+                    spe.address = reader.GetString(8);
+                    spe.reference = reader.GetString(9);
+                    spe.latitude = reader.GetDecimal(10);
+                    spe.longitude = reader.GetDecimal(11);
+                    spe.rate = reader.GetDecimal(12);
+                    spe.online = reader.GetBoolean(13);
+                    spe.state = reader.GetBoolean(14);
                     lista.Add(spe);
                 }
                 reader.Close();

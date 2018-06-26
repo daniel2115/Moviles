@@ -7,10 +7,10 @@ namespace ServiciosMovilkes.Models
 {
     public class Additional
     {
-        public int Id { get; set; }
-        public int QuotationId { get; set; }
-        public Decimal Price { get; set; }
-        public String Description { get;set; }
-        public Byte State { get; set; }
+        public int id { get; set; }
+        public int quotationId { get; set; }
+        public Decimal price { get; set; }
+        public String description { get;set; }
+        public Byte state { get; set; }
     }
 }

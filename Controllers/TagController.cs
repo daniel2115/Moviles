@@ -16,6 +16,15 @@ namespace ServiciosMovilkes.Controllers
     {
         public string ViewRouteName { get; set; }
 
+        struct GetTags
+        {
+            public List<Tag> tags;
+        }
+        struct GetSpecialistTags
+        {
+            public List<SpecialistTag> specialistTags;
+        }
+
         [HttpGet]
         [Route("api/tags")]
         public IHttpActionResult GetTag()
@@ -24,7 +33,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 TagManager manager = new TagManager();
                 List<Tag> lista = manager.Obtener();
-                return Ok(lista);
+                GetTags temp;
+                temp.tags = lista;
+                return Ok(temp);
             }catch(Exception e){
                 return NotFound();
             }
@@ -55,7 +66,7 @@ namespace ServiciosMovilkes.Controllers
                 TagManager manager = new TagManager();
                 Tag result = manager.Insertar(tag);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = tag.Id })), tag);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.id })), result);
                 else return BadRequest();
              }catch(Exception e){
                 return NotFound();
@@ -80,14 +91,16 @@ namespace ServiciosMovilkes.Controllers
         //SpecTag:
 
         [HttpGet]
-        [Route("api/tags/{id:int}/spectags")]
+        [Route("api/tags/{id:int}/specialisttags")]
         public IHttpActionResult GetSpecTag(int id)
         {
             try
             {
                 TagManager manager = new TagManager();
                 List<SpecialistTag> lista = manager.SpecialistTags(id);
-                return Ok(lista);
+                GetSpecialistTags temp;
+                temp.specialistTags = lista;
+                return Ok(temp);
             }catch (Exception e)
             {
                 return NotFound();
@@ -96,15 +109,15 @@ namespace ServiciosMovilkes.Controllers
 
 
         [HttpPost]
-        [Route("api/tags/{id:int}/spectags")]
-        public IHttpActionResult PostSpecTag(int id,[FromBody]SpecialistTag spectag)
+        [Route("api/tags/{id:int}/specialisttags")]
+        public IHttpActionResult PostSpecTag(int id,[FromBody]SpecialistTag specialisttag)
         {
             try{
                 SpecialistTagManager manager = new SpecialistTagManager();
-                spectag.TagId = id;
-                SpecialistTag result = manager.Insertar(spectag);
+                specialisttag.tagId = id;
+                SpecialistTag result = manager.Insertar(specialisttag);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = spectag.TagId })), spectag);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.tagId })), result);
                 else return BadRequest();
             }catch(Exception e){
                 return NotFound();
@@ -113,14 +126,14 @@ namespace ServiciosMovilkes.Controllers
 
 
         [HttpPut]
-        [Route("api/tags/{id:int}/spectags/{spectagid:int}")]
+        [Route("api/tags/{id:int}/specialisttags/{spectagid:int}")]
         public IHttpActionResult PutSpecTag(int id,int spectagid, [FromBody]SpecialistTag esp)
         {
             try{
                 SpecialistTagManager manager = new SpecialistTagManager();
                 SpecialistTag temp = manager.Obtener(spectagid);
-                if(temp.TagId == id){
-                    SpecialistTag result = manager.Editar(spectagid, esp.TagId);
+                if(temp.tagId == id){
+                    SpecialistTag result = manager.Editar(spectagid, temp.tagId);
                     if (result != null)
                         return Ok();
                     else return BadRequest();

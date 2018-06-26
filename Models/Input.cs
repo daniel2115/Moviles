@@ -7,7 +7,7 @@ namespace ServiciosMovilkes.Models
 {
     public class Input
     {
-        public String Login { get; set; }
-        public String Password { get; set; }
+        public String login { get; set; }
+        public String password { get; set; }
     }
 }

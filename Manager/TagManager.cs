@@ -22,8 +22,8 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Tag tag = new Tag();
-                    tag.Id = reader.GetInt32(0);
-                    tag.Description= reader.GetString(1);
+                    tag.id = reader.GetInt32(0);
+                    tag.description= reader.GetString(1);
                     lista.Add(tag);
                 }
                 reader.Close();
@@ -49,8 +49,8 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 tag = new Tag();
-                tag.Id = reader.GetInt32(0);
-                tag.Description = reader.GetString(1);
+                tag.id = reader.GetInt32(0);
+                tag.description = reader.GetString(1);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -67,7 +67,7 @@ namespace ServiciosMovilkes.Manager
                 string sql = "Insert into Tags(Description)" +
                     " output INSERTED.Id values(@description)";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = tag.Description;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = tag.description;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
@@ -93,7 +93,7 @@ namespace ServiciosMovilkes.Manager
             {
                 string sql = "Update Tags set Description = @description output INSERTED.Id where Id = @id";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = tag.Description;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = tag.description;
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
@@ -124,9 +124,9 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     SpecialistTag spe = new SpecialistTag();
-                    spe.Id = reader.GetInt32(0);
-                    spe.TagId = reader.GetInt32(1);
-                    spe.SpecialistId = reader.GetInt32(2);
+                    spe.id = reader.GetInt32(0);
+                    spe.tagId = reader.GetInt32(1);
+                    spe.specialistId = reader.GetInt32(2);
                     lista.Add(spe);
                 }
                 reader.Close();

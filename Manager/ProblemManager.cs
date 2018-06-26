@@ -23,11 +23,11 @@ namespace ServiciosMovilkes.Manager
             if (reader.Read())
             {
                 spe = new Problem();
-                spe.Id = reader.GetInt32(0);
-                spe.CustomerId = reader.GetInt32(1);
-                spe.Title = reader.GetString(2);
-                spe.Description = reader.GetString(3);
-                spe.State = reader.GetByte(4);
+                spe.id = reader.GetInt32(0);
+                spe.customerId = reader.GetInt32(1);
+                spe.title = reader.GetString(2);
+                spe.description = reader.GetString(3);
+                spe.state = reader.GetByte(4);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -45,10 +45,10 @@ namespace ServiciosMovilkes.Manager
                 "output INSERTED.Id values(@customerid,@title,@description,@state)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.CustomerId;
-                cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.Title;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.Description;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State; 
+                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.customerId;
+                cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.title;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.description;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state; 
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
@@ -76,10 +76,10 @@ namespace ServiciosMovilkes.Manager
                     ",Description = @description,State = @state output INSERTED.Id where Id = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.CustomerId;
-                cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.Title;
-                cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.Description;
-                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.State; 
+                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.customerId;
+                cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.title;
+                cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.description;
+                cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state; 
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
@@ -99,7 +99,7 @@ namespace ServiciosMovilkes.Manager
         public Problem Eliminar(int id)
         {
             Problem temp = Obtener(id);
-            temp.State = 0;
+            temp.state = 0;
             return Editar(id, temp);
         }
         public List<Quotation> Quotation(int id) {
@@ -118,21 +118,21 @@ namespace ServiciosMovilkes.Manager
                 while (reader.Read())
                 {
                     Quotation spe = new Quotation();
-                    spe.Id = reader.GetInt32(0);
-                    spe.ProblemId = reader.GetInt32(1);
-                    spe.SpecialistId = reader.GetInt32(2);
-                    spe.Description = reader.GetString(3);
-                    spe.Price = reader.GetDecimal(4);
-                    spe.EstimatedTime = reader.GetByte(5);
-                    spe.IncludesMaterial = reader.GetBoolean(6);
-                    spe.State = reader.GetByte(7);
-                    spe.StartDate = reader.GetDateTime(8);
-                    spe.FinishDate = reader.GetDateTime(9);
-                    spe.FinalPrice = reader.GetDecimal(10);
-                    spe.SpecialistRate = reader.GetDecimal(11);
-                    spe.SpecialistComment = reader.GetString(12);
-                    spe.CustomerRate = reader.GetDecimal(13);
-                    spe.CustomerComment = reader.GetString(14);
+                    spe.id = reader.GetInt32(0);
+                    spe.problemId = reader.GetInt32(1);
+                    spe.specialistId = reader.GetInt32(2);
+                    spe.description = reader.GetString(3);
+                    spe.price = reader.GetDecimal(4);
+                    spe.estimatedTime = reader.GetByte(5);
+                    spe.includesMaterial = reader.GetBoolean(6);
+                    spe.state = reader.GetByte(7);
+                    spe.startDate = reader.GetDateTime(8);
+                    spe.finishDate = reader.GetDateTime(9);
+                    spe.finalPrice = reader.GetDecimal(10);
+                    spe.specialistRate = reader.GetDecimal(11);
+                    spe.specialistComment = reader.GetString(12);
+                    spe.customerRate = reader.GetDecimal(13);
+                    spe.customerComment = reader.GetString(14);
                     lista.Add(spe);
                 }
                 reader.Close();

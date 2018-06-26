@@ -7,7 +7,7 @@ namespace ServiciosMovilkes.Models
 {
     public class Tag
     {
-        public int Id { get; set; }
-        public String Description { get; set; }
+        public int id { get; set; }
+        public String description { get; set; }
     }
 }
