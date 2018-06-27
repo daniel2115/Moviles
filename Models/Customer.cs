@@ -13,8 +13,8 @@ namespace ServiciosMovilkes.Models
         public String name { get; set; }
         public String lastName { get; set; }
         public String email { get; set; }
-        public int documentTypeId { get; set; }
-        public String documentNumber { get; set; }
+     
+        public DocumentType document = new DocumentType();
         public String phoneNumber { get; set; }
         public String address { get; set; }
         public String reference { get; set; }

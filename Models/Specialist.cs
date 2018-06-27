@@ -15,8 +15,8 @@ namespace ServiciosMovilkes.Models
         public String email { get; set; }
         public String companyName { get; set; }
         public String serviceDescription { get; set; }
-        public int documentTypeId { get; set; }
-        public String documentNumber { get; set; }
+   
+        public DocumentType document = new DocumentType();
         public String phoneNumber { get; set; }
         public String facebook { get; set; }
         public String webSite { get; set; }

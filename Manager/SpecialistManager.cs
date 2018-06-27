@@ -35,8 +35,8 @@ namespace ServiciosMovilkes.Manager
                     spe.email = reader.GetString(4);
                     spe.companyName = reader.GetString(5);
                     spe.serviceDescription = reader.GetString(6);
-                    spe.documentTypeId = reader.GetInt32(7);
-                    spe.documentNumber = reader.GetString(8);
+                    spe.document.id = reader.GetInt32(7);
+                    spe.document.description = reader.GetString(8);
                     spe.phoneNumber = reader.GetString(9);
                     spe.facebook = reader.GetString(10);
                     spe.webSite = reader.GetString(11);
@@ -88,8 +88,8 @@ namespace ServiciosMovilkes.Manager
                 spe.email = reader.GetString(5);
                 spe.companyName = reader.GetString(6);
                 spe.serviceDescription = reader.GetString(7);
-                spe.documentTypeId = reader.GetInt32(8);
-                spe.documentNumber = reader.GetString(9);
+                spe.document.id = reader.GetInt32(8);
+                spe.document.description = reader.GetString(9);
                 spe.phoneNumber = reader.GetString(10);
                 spe.facebook = reader.GetString(11);
                 spe.webSite = reader.GetString(12);
@@ -137,8 +137,8 @@ namespace ServiciosMovilkes.Manager
                 spe.email = reader.GetString(5);
                 spe.companyName = reader.GetString(6);
                 spe.serviceDescription = reader.GetString(7);
-                spe.documentTypeId = reader.GetInt32(8);
-                spe.documentNumber = reader.GetString(9);
+                spe.document.id = reader.GetInt32(8);
+                spe.document.description = reader.GetString(9);
                 spe.phoneNumber = reader.GetString(10);
                 spe.facebook = reader.GetString(11);
                 spe.webSite = reader.GetString(12);
@@ -178,8 +178,8 @@ namespace ServiciosMovilkes.Manager
                 cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.email;
                 cmd.Parameters.Add("@companyname", System.Data.SqlDbType.VarChar).Value = spe.companyName;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.serviceDescription;
-                cmd.Parameters.Add("@doctype", System.Data.SqlDbType.Int).Value = spe.documentTypeId;
-                cmd.Parameters.Add("@docnumber", System.Data.SqlDbType.VarChar).Value = spe.documentNumber;
+                cmd.Parameters.Add("@doctype", System.Data.SqlDbType.Int).Value = spe.document.id;
+                cmd.Parameters.Add("@docnumber", System.Data.SqlDbType.VarChar).Value = spe.document.description;
                 cmd.Parameters.Add("@phone", System.Data.SqlDbType.Char).Value = spe.phoneNumber;
                 cmd.Parameters.Add("@facebook", System.Data.SqlDbType.VarChar).Value = spe.facebook;
                 cmd.Parameters.Add("@web", System.Data.SqlDbType.VarChar).Value = spe.webSite;
@@ -229,8 +229,8 @@ namespace ServiciosMovilkes.Manager
                 cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.email;
                 cmd.Parameters.Add("@companyname", System.Data.SqlDbType.VarChar).Value = spe.companyName;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.serviceDescription;
-                cmd.Parameters.Add("@doctype", System.Data.SqlDbType.Int).Value = spe.documentTypeId;
-                cmd.Parameters.Add("@docnumber", System.Data.SqlDbType.VarChar).Value = spe.documentNumber;
+                cmd.Parameters.Add("@doctype", System.Data.SqlDbType.Int).Value = spe.document.id;
+                cmd.Parameters.Add("@docnumber", System.Data.SqlDbType.VarChar).Value = spe.document.description;
                 cmd.Parameters.Add("@phone", System.Data.SqlDbType.Char).Value = spe.phoneNumber;
                 cmd.Parameters.Add("@facebook", System.Data.SqlDbType.VarChar).Value = spe.facebook;
                 cmd.Parameters.Add("@web", System.Data.SqlDbType.VarChar).Value = spe.webSite;
@@ -270,6 +270,9 @@ namespace ServiciosMovilkes.Manager
             List<Favorite> lista = new List<Favorite>();
             try
             {
+                CustomerManager customerManager = new CustomerManager();
+                SpecialistManager specialistManager = new SpecialistManager();
+
                 string sql = "Select Id,Hidden,CustomerId,SpecialistId from Favorites where SpecialistId = @specialistId";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@specialistId", System.Data.SqlDbType.NVarChar).Value = id;
@@ -366,5 +369,6 @@ namespace ServiciosMovilkes.Manager
                 con.Close();
             return lista;
         }
+     
     }
 }

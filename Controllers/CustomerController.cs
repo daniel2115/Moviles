@@ -29,7 +29,10 @@ namespace ServiciosMovilkes.Controllers
         {
             public List<Problem> problems;
         }
-
+        struct GetQuotations
+        {
+            public List<Quotation> quotations;
+        }
         //Customer:
         [HttpGet]
         [Route("api/customers")]
@@ -323,6 +326,46 @@ namespace ServiciosMovilkes.Controllers
                 return Ok(problem);
                 else
                 return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
+        //Quotations:
+        [HttpPost]
+        [Route("api/customers/{id:int}/problems/{problemid:int}/quotations")]
+        public IHttpActionResult PostQuotation(int id, int problemid,[FromBody]Quotation quotation)
+        {
+            try
+            {
+                QuotationManager manager = new QuotationManager();
+                quotation.specialistId = id;
+                quotation.problemId = id;
+                quotation.state = 0;
+                Quotation result = manager.Insertar(quotation);
+                if (result != null)
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialistId })), result);
+                else return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        [Route("api/customers/{id:int}/problems/{problemid:int}/quotations")]
+        public IHttpActionResult GetQuotation(int id, int problemid)
+        {
+            try
+            {
+                CustomerManager manager = new CustomerManager();
+                List<Quotation> lista = manager.Quotations(problemid);
+                GetQuotations temp;
+                temp.quotations = lista;
+                return Ok(temp);
             }
             catch (Exception e)
             {

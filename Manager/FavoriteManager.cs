@@ -16,6 +16,9 @@ namespace ServiciosMovilkes.Manager
             List<Favorite> lista = new List<Favorite>();
             try
             {
+                CustomerManager customerManager = new CustomerManager();
+                SpecialistManager specialistManager = new SpecialistManager();
+
                 string sql = "Select Id,Hidden,CustomerId,SpecialistId from Favorites";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
@@ -40,6 +43,9 @@ namespace ServiciosMovilkes.Manager
         }
         public Favorite Obtener(int id)
         {
+            CustomerManager customerManager = new CustomerManager();
+            SpecialistManager specialistManager = new SpecialistManager();
+
             Favorite spe = null;
             SqlConnection con = new SqlConnection(Resource.CadenaConexion);
             con.Open();

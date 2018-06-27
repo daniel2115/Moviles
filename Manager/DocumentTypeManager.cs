@@ -137,8 +137,8 @@ namespace ServiciosMovilkes.Manager
                     spe.email = reader.GetString(5);
                     spe.companyName = reader.GetString(6);
                     spe.serviceDescription = reader.GetString(7);
-                    spe.documentTypeId = reader.GetInt32(8);
-                    spe.documentNumber = reader.GetString(9);
+                    spe.document.id = reader.GetInt32(8);
+                    spe.document.description = reader.GetString(9);
                     spe.phoneNumber = reader.GetString(10);
                     spe.facebook = reader.GetString(11);
                     spe.webSite = reader.GetString(12);
@@ -185,8 +185,8 @@ namespace ServiciosMovilkes.Manager
                     spe.name = reader.GetString(2);
                     spe.lastName = reader.GetString(3);
                     spe.email = reader.GetString(4);
-                    spe.documentTypeId = reader.GetInt32(5);
-                    spe.documentNumber = reader.GetString(6);
+                    spe.document.id = reader.GetInt32(5);
+                    spe.document.description = reader.GetString(6);
                     spe.phoneNumber = reader.GetString(7);
                     spe.address = reader.GetString(8);
                     spe.reference = reader.GetString(9);

@@ -30,8 +30,8 @@ namespace ServiciosMovilkes.Manager
                     spe.name = reader.GetString(2);
                     spe.lastName = reader.GetString(3);
                     spe.email = reader.GetString(4);
-                    spe.documentTypeId = reader.GetInt32(5);
-                    spe.documentNumber = reader.GetString(6);
+                    spe.document.id = reader.GetInt32(5);
+                    spe.document.description = reader.GetString(6);
                     spe.phoneNumber = reader.GetString(7);
                     spe.address = reader.GetString(8);
                     spe.reference = reader.GetString(9);
@@ -74,8 +74,8 @@ namespace ServiciosMovilkes.Manager
                 spe.name = reader.GetString(3);
                 spe.lastName = reader.GetString(4);
                 spe.email = reader.GetString(5);
-                spe.documentTypeId = reader.GetInt32(6);
-                spe.documentNumber = reader.GetString(7);
+                spe.document.id = reader.GetInt32(6);
+                spe.document.description = reader.GetString(7);
                 spe.phoneNumber = reader.GetString(8);
                 spe.address = reader.GetString(9);
                 spe.reference = reader.GetString(10);
@@ -114,8 +114,8 @@ namespace ServiciosMovilkes.Manager
                 spe.name = reader.GetString(2);
                 spe.lastName = reader.GetString(3);
                 spe.email = reader.GetString(4);
-                spe.documentTypeId = reader.GetInt32(5);
-                spe.documentNumber = reader.GetString(6);
+                spe.document.id = reader.GetInt32(5);
+                spe.document.description = reader.GetString(6);
                 spe.phoneNumber = reader.GetString(7);
                 spe.address = reader.GetString(8);
                 spe.reference = reader.GetString(9);
@@ -149,8 +149,8 @@ namespace ServiciosMovilkes.Manager
                 cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = spe.name;
                 cmd.Parameters.Add("@lastname", System.Data.SqlDbType.VarChar).Value = spe.lastName;
                 cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.email;
-                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.documentTypeId;
-                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.documentNumber;
+                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.document.id;
+                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.document.description;
                 cmd.Parameters.Add("@phonenumber", System.Data.SqlDbType.Char).Value = spe.phoneNumber;          
                 cmd.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = spe.address;
                 cmd.Parameters.Add("@reference", System.Data.SqlDbType.VarChar).Value = spe.reference;
@@ -193,8 +193,8 @@ namespace ServiciosMovilkes.Manager
                 cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar).Value = spe.name;
                 cmd.Parameters.Add("@lastname", System.Data.SqlDbType.VarChar).Value = spe.lastName;
                 cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar).Value = spe.email;
-                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.documentTypeId;
-                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.documentNumber;
+                cmd.Parameters.Add("@documenttypeid", System.Data.SqlDbType.Int).Value = spe.document.id;
+                cmd.Parameters.Add("@documentnumber", System.Data.SqlDbType.VarChar).Value = spe.document.description;
                 cmd.Parameters.Add("@phonenumber", System.Data.SqlDbType.Char).Value = spe.phoneNumber;
                 cmd.Parameters.Add("@address", System.Data.SqlDbType.VarChar).Value = spe.address;
                 cmd.Parameters.Add("@reference", System.Data.SqlDbType.VarChar).Value = spe.reference;
@@ -232,6 +232,9 @@ namespace ServiciosMovilkes.Manager
             List<Favorite> lista = new List<Favorite>();
             try
             {
+                CustomerManager customerManager = new CustomerManager();
+                SpecialistManager specialistManager = new SpecialistManager();
+
                 string sql = "Select Id,Hidden,CustomerId,SpecialistId from Favorites where CustomerId = @idClient";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@idClient", System.Data.SqlDbType.NVarChar).Value = id;
@@ -285,5 +288,53 @@ namespace ServiciosMovilkes.Manager
                 con.Close();
             return lista;      
         }
+        public List<Quotation> Quotations(int problemid)
+        {
+            SqlConnection con = new SqlConnection(Resource.CadenaConexion);
+            con.Open();
+            List<Quotation> lista = new List<Quotation>();
+            try
+            {
+                string sql = "Select qu.Id,ProblemId,qu.SpecialistId,qu.Description,qu.Price," +
+                "qu.EstimatedTime,qu.IncludesMaterials,qu.State,qu.StartDate," +
+                "qu.FinishDate,qu.FinalPrice,qu.SpecialistRate,qu.SpecialistComment," +
+                "qu.CustomerRate,qu.CustomerComment from Quotations qu" +
+                "join Problems pro on pro.Id = qu.ProblemId" +
+                "where pro.CustomerId = @problemid";
+
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.NVarChar).Value = problemid;
+                SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+                while (reader.Read())
+                {
+                    Quotation spe = new Quotation();
+                    spe.id = reader.GetInt32(0);
+                    spe.problemId = reader.GetInt32(1);
+                    spe.specialistId = reader.GetInt32(2);
+                    spe.description = reader.GetString(3);
+                    spe.price = reader.GetDecimal(4);
+                    spe.estimatedTime = reader.GetByte(5);
+                    spe.includesMaterial = reader.GetBoolean(6);
+                    spe.state = reader.GetByte(7);
+                    spe.startDate = reader.GetDateTime(8);
+                    spe.finishDate = reader.GetDateTime(9);
+                    spe.finalPrice = reader.GetDecimal(10);
+                    spe.specialistRate = reader.GetDecimal(11);
+                    spe.specialistComment = reader.GetString(12);
+                    spe.customerRate = reader.GetDecimal(13);
+                    spe.customerComment = reader.GetString(14);
+                    lista.Add(spe);
+                }
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e);
+            }
+            if (con.State == System.Data.ConnectionState.Open)
+                con.Close();
+            return lista;
+        }
+    
     }
 }

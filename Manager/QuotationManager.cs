@@ -139,7 +139,7 @@ namespace ServiciosMovilkes.Manager
         public Quotation Eliminar(int id)
         {
             Quotation temp = Obtener(id);
-            temp.state = 0;
+            temp.state = 2;
             return Editar(id, temp);
         }
         public List<Additional> Additional(int id) {
