@@ -24,7 +24,7 @@ namespace ServiciosMovilkes.Manager
             {
                 spe = new Additional();
                 spe.id = reader.GetInt32(0);
-                spe.quotationId = reader.GetInt32(1);
+                spe.quotation.id = reader.GetInt32(1);
                 spe.price = reader.GetDecimal(2);
                 spe.description = reader.GetString(3);
                 spe.state = reader.GetByte(4);
@@ -45,7 +45,7 @@ namespace ServiciosMovilkes.Manager
                 "values(@quotationid,@price,@description,@state)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.quotationId;
+                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.quotation.id;
                 cmd.Parameters.Add("@price", System.Data.SqlDbType.Int).Value = spe.price;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.description;
                 cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.state;
@@ -72,11 +72,11 @@ namespace ServiciosMovilkes.Manager
             con.Open();
             try
             {
-                string sql = "Update Additionals set QuotationId = @quotationid,Price= @price" +
+                string sql = "Update Additionals set QuotationId = @quotationid,Price= @price " +
                     ",Description = @description,State = @state output INSERTED.Id where Id = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.quotationId;
+                cmd.Parameters.Add("@quotationid", System.Data.SqlDbType.Int).Value = spe.quotation.id;
                 cmd.Parameters.Add("@price", System.Data.SqlDbType.Int).Value = spe.price;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.Int).Value = spe.description;
                 cmd.Parameters.Add("@state", System.Data.SqlDbType.Int).Value = spe.state;

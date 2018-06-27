@@ -114,10 +114,10 @@ namespace ServiciosMovilkes.Controllers
         {
             try{
                 SpecialistTagManager manager = new SpecialistTagManager();
-                specialisttag.tagId = id;
+                specialisttag.tag.id = id;
                 SpecialistTag result = manager.Insertar(specialisttag);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.tagId })), result);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.tag.id })), result);
                 else return BadRequest();
             }catch(Exception e){
                 return NotFound();
@@ -132,8 +132,8 @@ namespace ServiciosMovilkes.Controllers
             try{
                 SpecialistTagManager manager = new SpecialistTagManager();
                 SpecialistTag temp = manager.Obtener(spectagid);
-                if(temp.tagId == id){
-                    SpecialistTag result = manager.Editar(spectagid, temp.tagId);
+                if(temp.tag.id == id){
+                    SpecialistTag result = manager.Editar(spectagid, temp.tag.id);
                     if (result != null)
                         return Ok();
                     else return BadRequest();

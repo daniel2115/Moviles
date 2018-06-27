@@ -16,8 +16,10 @@ namespace ServiciosMovilkes.Manager
             List<Customer> lista = new List<Customer>();
             try
             {
+                DocumentTypeManager documentTypeManager = new DocumentTypeManager();
+
                 string sql = "Select Id,Login,Names,LastNames,Email," +
-                "DocumentTypeId,DocumentNumber,PhoneNumber,Address," +
+                "DocumentTypeId,PhoneNumber,Address," +
                 "Reference,Latitude,Longitude,Rate,"+
                 "Online,State from Customers";
                 SqlCommand cmd = new SqlCommand(sql, con);
@@ -30,16 +32,15 @@ namespace ServiciosMovilkes.Manager
                     spe.name = reader.GetString(2);
                     spe.lastName = reader.GetString(3);
                     spe.email = reader.GetString(4);
-                    spe.document.id = reader.GetInt32(5);
-                    spe.document.description = reader.GetString(6);
-                    spe.phoneNumber = reader.GetString(7);
-                    spe.address = reader.GetString(8);
-                    spe.reference = reader.GetString(9);
-                    spe.latitude = reader.GetDecimal(10);
-                    spe.longitude = reader.GetDecimal(11);
-                    spe.rate = reader.GetDecimal(12);
-                    spe.online = reader.GetBoolean(13);
-                    spe.state = reader.GetBoolean(14);
+                    spe.document = documentTypeManager.Obtener(reader.GetInt32(5));  
+                    spe.phoneNumber = reader.GetString(6);
+                    spe.address = reader.GetString(7);
+                    spe.reference = reader.GetString(8);
+                    spe.latitude = reader.GetDecimal(9);
+                    spe.longitude = reader.GetDecimal(10);
+                    spe.rate = reader.GetDecimal(11);
+                    spe.online = reader.GetBoolean(12);
+                    spe.state = reader.GetBoolean(13);
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -54,11 +55,12 @@ namespace ServiciosMovilkes.Manager
         }
         public Customer Obtener(int id)
         {
+            DocumentTypeManager documentTypeManager = new DocumentTypeManager();
             Customer spe = null;
             SqlConnection con = new SqlConnection(Resource.CadenaConexion);
             con.Open();
             string sql = "Select Id,Login,Password,Names,LastNames,Email," +
-              "DocumentTypeId,DocumentNumber,PhoneNumber,Address," +
+              "DocumentTypeId,PhoneNumber,Address," +
               "Reference,Latitude,Longitude,Rate," +
               "Online,State from Customers where Id = @idClient";
             SqlCommand cmd = new SqlCommand(sql, con);
@@ -74,16 +76,15 @@ namespace ServiciosMovilkes.Manager
                 spe.name = reader.GetString(3);
                 spe.lastName = reader.GetString(4);
                 spe.email = reader.GetString(5);
-                spe.document.id = reader.GetInt32(6);
-                spe.document.description = reader.GetString(7);
-                spe.phoneNumber = reader.GetString(8);
-                spe.address = reader.GetString(9);
-                spe.reference = reader.GetString(10);
-                spe.latitude = reader.GetDecimal(11);
-                spe.longitude = reader.GetDecimal(12);
-                spe.rate = reader.GetDecimal(13);
-                spe.online = reader.GetBoolean(14);
-                spe.state = reader.GetBoolean(15);
+                spe.document = documentTypeManager.Obtener(reader.GetInt32(6));  
+                spe.phoneNumber = reader.GetString(7);
+                spe.address = reader.GetString(8);
+                spe.reference = reader.GetString(9);
+                spe.latitude = reader.GetDecimal(10);
+                spe.longitude = reader.GetDecimal(11);
+                spe.rate = reader.GetDecimal(12);
+                spe.online = reader.GetBoolean(13);
+                spe.state = reader.GetBoolean(14);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -231,11 +232,10 @@ namespace ServiciosMovilkes.Manager
             con.Open();
             List<Favorite> lista = new List<Favorite>();
             try
-            {
-                CustomerManager customerManager = new CustomerManager();
+            {    
                 SpecialistManager specialistManager = new SpecialistManager();
 
-                string sql = "Select Id,Hidden,CustomerId,SpecialistId from Favorites where CustomerId = @idClient";
+                string sql = "Select Id,Hidden,customerid,specialistid from Favorites where customerid = @idClient";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@idClient", System.Data.SqlDbType.NVarChar).Value = id;
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
@@ -244,8 +244,8 @@ namespace ServiciosMovilkes.Manager
                     Favorite spe = new Favorite();
                     spe.id = reader.GetInt32(0);
                     spe.hidden = reader.GetBoolean(1);
-                    spe.customerId = reader.GetInt32(2);
-                    spe.specialistId = reader.GetInt32(3);
+                    spe.customer.id = reader.GetInt32(2);
+                    spe.specialist = specialistManager.Obtener(reader.GetInt32(3));
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -258,13 +258,38 @@ namespace ServiciosMovilkes.Manager
                 con.Close();
             return lista;
         }
+        public Favorite FavoriteUnique(int id)
+        {
+            SpecialistManager specialistManager = new SpecialistManager();
+
+            Favorite spe = null;
+            SqlConnection con = new SqlConnection(Resource.CadenaConexion);
+            con.Open();
+            string sql = "Select Id,Hidden,CustomerId,SpecialistId from Favorites where Id = @idFavorite";
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.Add("@idFavorite", System.Data.SqlDbType.NVarChar).Value = id;
+            SqlDataReader reader =
+                cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+            if (reader.Read())
+            {
+                spe = new Favorite();
+                spe.id = reader.GetInt32(0);
+                spe.hidden = reader.GetBoolean(1);
+                spe.customer.id = reader.GetInt32(2);
+                spe.specialist = specialistManager.Obtener(reader.GetInt32(3));
+            }
+            reader.Close();
+            if (con.State == System.Data.ConnectionState.Open)
+                con.Close();
+            return spe;
+        }         
         public List<Problem> Problem(int id) {
             SqlConnection con = new SqlConnection(Resource.CadenaConexion);
             con.Open();
             List<Problem> lista = new List<Problem>();
             try
             {
-                string sql = "select Id,CustomerId,Title,Description,State from Problems where CustomerId = @problem";
+                string sql = "select Id,customerid,Title,Description,State from Problems where customerid = @problem";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@problem", System.Data.SqlDbType.NVarChar).Value = id;
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
@@ -272,7 +297,7 @@ namespace ServiciosMovilkes.Manager
                 {
                     Problem spe = new Problem();
                     spe.id = reader.GetInt32(0);
-                    spe.customerId = reader.GetInt32(1);
+                    spe.customer.id = reader.GetInt32(1);
                     spe.title = reader.GetString(2);
                     spe.description = reader.GetString(3);
                     spe.state = reader.GetByte(4);
@@ -288,29 +313,58 @@ namespace ServiciosMovilkes.Manager
                 con.Close();
             return lista;      
         }
-        public List<Quotation> Quotations(int problemid)
+        public Problem ProblemUnique(int id)
+        {
+            Problem spe = null;
+            SqlConnection con = new SqlConnection(Resource.CadenaConexion);
+            con.Open();
+            string sql = "select Id,customerid,Title,Description,State from Problems where Id = @problem";
+
+            SqlCommand cmd = new SqlCommand(sql, con);
+            cmd.Parameters.Add("@problem", System.Data.SqlDbType.NVarChar).Value = id;
+            SqlDataReader reader =
+                cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+            if (reader.Read())
+            {
+                spe = new Problem();
+                spe.id = reader.GetInt32(0);
+                spe.customer.id = reader.GetInt32(1);
+                spe.title = reader.GetString(2);
+                spe.description = reader.GetString(3);
+                spe.state = reader.GetByte(4);
+            }
+            reader.Close();
+            if (con.State == System.Data.ConnectionState.Open)
+                con.Close();
+            return spe;
+        }
+        public List<Quotation> Quotations(int id,int problemid)
         {
             SqlConnection con = new SqlConnection(Resource.CadenaConexion);
             con.Open();
             List<Quotation> lista = new List<Quotation>();
             try
             {
-                string sql = "Select qu.Id,ProblemId,qu.SpecialistId,qu.Description,qu.Price," +
+                SpecialistManager specialistManager = new SpecialistManager();
+                ProblemManager problemmanager = new ProblemManager();
+
+                string sql = "Select qu.Id,ProblemId,qu.specialistid,qu.Description,qu.Price," +
                 "qu.EstimatedTime,qu.IncludesMaterials,qu.State,qu.StartDate," +
                 "qu.FinishDate,qu.FinalPrice,qu.SpecialistRate,qu.SpecialistComment," +
-                "qu.CustomerRate,qu.CustomerComment from Quotations qu" +
-                "join Problems pro on pro.Id = qu.ProblemId" +
-                "where pro.CustomerId = @problemid";
+                "qu.CustomerRate,qu.CustomerComment from Quotations qu " +
+                "join Problems pro on pro.Id = qu.ProblemId " +
+                "where pro.customerid = @id and ProblemId = @problemid";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@problemid", System.Data.SqlDbType.NVarChar).Value = problemid;
+                cmd.Parameters.Add("@id", System.Data.SqlDbType.NVarChar).Value = id;
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
                 while (reader.Read())
                 {
                     Quotation spe = new Quotation();
                     spe.id = reader.GetInt32(0);
-                    spe.problemId = reader.GetInt32(1);
-                    spe.specialistId = reader.GetInt32(2);
+                    spe.problem = problemmanager.Obtener(reader.GetInt32(1));
+                    spe.specialist = specialistManager.Obtener(reader.GetInt32(2));
                     spe.description = reader.GetString(3);
                     spe.price = reader.GetDecimal(4);
                     spe.estimatedTime = reader.GetByte(5);

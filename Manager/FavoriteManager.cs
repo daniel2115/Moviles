@@ -27,8 +27,8 @@ namespace ServiciosMovilkes.Manager
                     Favorite spe = new Favorite();
                     spe.id = reader.GetInt32(0);
                     spe.hidden = reader.GetBoolean(1);
-                    spe.customerId = reader.GetInt32(2);
-                    spe.specialistId = reader.GetInt32(3);
+                    spe.customer.id = reader.GetInt32(2);
+                    spe.specialist.id = reader.GetInt32(3);
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -59,8 +59,8 @@ namespace ServiciosMovilkes.Manager
                 spe = new Favorite();
                 spe.id = reader.GetInt32(0);
                 spe.hidden = reader.GetBoolean(1);
-                spe.customerId = reader.GetInt32(2);
-                spe.specialistId = reader.GetInt32(3);
+                spe.customer.id = reader.GetInt32(2);
+                spe.specialist.id = reader.GetInt32(3);
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -78,12 +78,16 @@ namespace ServiciosMovilkes.Manager
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@hidden", System.Data.SqlDbType.Int).Value = spe.hidden;
-                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.customerId;
-                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialistId;
+                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.customer.id;
+                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialist.id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
+                    CustomerManager customerManager = new CustomerManager();
+                    SpecialistManager specialistManager = new SpecialistManager();
                     result = Obtener(modified);
+                    result.customer = customerManager.Obtener(result.customer.id);
+                    result.specialist = specialistManager.Obtener(result.specialist.id);
                 }
             }
             catch (Exception e)
@@ -106,8 +110,8 @@ namespace ServiciosMovilkes.Manager
                 string sql = "Update Favorites set Hidden = @hidden,CustomerId= @customer, SpecialistId = @specialist output INSERTED.Id where Id = @id";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.Add("@hidden", System.Data.SqlDbType.Bit).Value = spe.hidden;
-                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.customerId;
-                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialistId;
+                cmd.Parameters.Add("@customer", System.Data.SqlDbType.Int).Value = spe.customer.id;
+                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialist.id;
                 cmd.Parameters.Add("@id", System.Data.SqlDbType.Int).Value = id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)

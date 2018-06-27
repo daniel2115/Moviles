@@ -16,15 +16,18 @@ namespace ServiciosMovilkes.Manager
             List<SpecialistTag> lista = new List<SpecialistTag>();
             try
             {
-                string sql = "Select Id,TagId,SpecialistId from SpecialistTags";
+                TagManager tagmanager = new TagManager();
+                SpecialistManager specialistManager = new SpecialistManager();
+
+                string sql = "Select Id,TagId,specialistid from SpecialistTags";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 SqlDataReader reader = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
                 while (reader.Read())
                 {
                     SpecialistTag spe = new SpecialistTag();
                     spe.id = reader.GetInt32(0);
-                    spe.tagId = reader.GetInt32(1);
-                    spe.specialistId = reader.GetInt32(2);
+                    spe.tag = tagmanager.Obtener(reader.GetInt32(1));
+                    spe.specialist = specialistManager.Obtener(reader.GetInt32(2));
                     lista.Add(spe);
                 }
                 reader.Close();
@@ -39,10 +42,13 @@ namespace ServiciosMovilkes.Manager
         }
         public SpecialistTag Obtener(int id)
         {
+            TagManager tagmanager = new TagManager();
+            SpecialistManager specialistManager = new SpecialistManager();
+
             SpecialistTag spe = null;
             SqlConnection con = new SqlConnection(Resource.CadenaConexion);
             con.Open();
-            string sql = "Select Id,TagId,SpecialistId from SpecialistTags where Id = @idSpectags";
+            string sql = "Select Id,TagId,specialistid from SpecialistTags where Id = @idSpectags";
             SqlCommand cmd = new SqlCommand(sql, con);
             cmd.Parameters.Add("@idSpectags", System.Data.SqlDbType.NVarChar).Value = id;
             SqlDataReader reader =
@@ -51,8 +57,8 @@ namespace ServiciosMovilkes.Manager
             {
                 spe = new SpecialistTag();
                 spe.id = reader.GetInt32(0);
-                spe.tagId = reader.GetInt32(1);
-                spe.specialistId = reader.GetInt32(2);
+                spe.tag = tagmanager.Obtener(reader.GetInt32(1));
+                spe.specialist = specialistManager.Obtener(reader.GetInt32(2));
             }
             reader.Close();
             if (con.State == System.Data.ConnectionState.Open)
@@ -66,15 +72,17 @@ namespace ServiciosMovilkes.Manager
             con.Open();
             try
             {
-                string sql = "Insert into SpecialistTags(TagId,specialistId) output INSERTED.Id values(@tgd,@specialist)";
+                string sql = "Insert into SpecialistTags(TagId,specialistid) output INSERTED.Id values(@tgd,@specialist)";
                   
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@tgd", System.Data.SqlDbType.Int).Value = spe.tagId;
-                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialistId;
+                cmd.Parameters.Add("@tgd", System.Data.SqlDbType.Int).Value = spe.tag.id;
+                cmd.Parameters.Add("@specialist", System.Data.SqlDbType.Int).Value = spe.specialist.id;
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
+                    TagManager tagManager = new TagManager();
                     result = Obtener(modified);
+                    result.tag = tagManager.Obtener(result.tag.id);
                 }
             }
             catch (Exception e)

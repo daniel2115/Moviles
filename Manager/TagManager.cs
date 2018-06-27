@@ -125,8 +125,8 @@ namespace ServiciosMovilkes.Manager
                 {
                     SpecialistTag spe = new SpecialistTag();
                     spe.id = reader.GetInt32(0);
-                    spe.tagId = reader.GetInt32(1);
-                    spe.specialistId = reader.GetInt32(2);
+                    spe.tag.id = reader.GetInt32(1);
+                    spe.specialist.id = reader.GetInt32(2);
                     lista.Add(spe);
                 }
                 reader.Close();

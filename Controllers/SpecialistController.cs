@@ -160,9 +160,9 @@ namespace ServiciosMovilkes.Controllers
         {
             try
             {
-                FavoriteManager manager = new FavoriteManager();
-                Favorite favorite = manager.Obtener(favoriteid);
-                if (favorite.specialistId == id)
+                SpecialistManager manager = new SpecialistManager();
+                Favorite favorite = manager.FavoriteUnique(favoriteid);
+                if (favorite.specialist.id == id)
                 return Ok(favorite);
                 else
                 return BadRequest();
@@ -180,10 +180,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 FavoriteManager manager = new FavoriteManager();
-                favorite.specialistId = id;
+                favorite.specialist.id = id;
                 Favorite result = manager.Insertar(favorite);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialistId })), result);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialist.id })), result);
                 else return BadRequest();
             }
             catch (Exception e)
@@ -200,9 +200,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite temp = manager.Obtener(favoriteid);
-                if (temp.specialistId == id)
+                if (temp.specialist.id == id)
                 {
-                    favorito.specialistId = id;
+                    favorito.specialist.id = id;
                     Favorite result = manager.Editar(favoriteid, favorito);
                     if (result != null)
                         return Ok();
@@ -224,7 +224,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 FavoriteManager manager = new FavoriteManager();
                 Favorite temp = manager.Obtener(favoriteid);
-                if (temp.specialistId == id)
+                if (temp.specialist.id == id)
                 {
                     Favorite result = manager.Eliminar(favoriteid);
                     if (result != null)
@@ -266,9 +266,9 @@ namespace ServiciosMovilkes.Controllers
         {
             try
             {
-                SpecialistTagManager manager = new SpecialistTagManager();
-                SpecialistTag specialisttag = manager.Obtener(specialisttagid);
-                if (specialisttag.specialistId == id)
+                SpecialistManager manager = new SpecialistManager();
+                SpecialistTag specialisttag = manager.SpecialistTagUnique(specialisttagid);
+                if (specialisttag.specialist.id == id)
                     return Ok(specialisttag);
                 else
                     return BadRequest();
@@ -287,10 +287,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 SpecialistTagManager manager = new SpecialistTagManager();
-                spectag.specialistId = id;
+                spectag.specialist.id = id;
                 SpecialistTag result = manager.Insertar(spectag);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialistId })), result);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialist.id })), result);
                 else return BadRequest();
             }
             catch (Exception e)
@@ -307,9 +307,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 SpecialistTagManager manager = new SpecialistTagManager();
                 SpecialistTag temp = manager.Obtener(specialisttagid);
-                if (temp.specialistId == id)
+                if (temp.specialist.id == id)
                 {
-                    SpecialistTag result = manager.Editar(specialisttagid, esp.tagId);
+                    SpecialistTag result = manager.Editar(specialisttagid, esp.tag.id);
                     if (result != null)
                         return Ok();
                     else return BadRequest();
@@ -347,9 +347,9 @@ namespace ServiciosMovilkes.Controllers
         {
             try
             {
-                QuotationManager manager = new QuotationManager();
-                Quotation quotation = manager.Obtener(id);
-                if (quotation.specialistId == id)
+                SpecialistManager manager = new SpecialistManager();
+                Quotation quotation = manager.QuotationsUnique(id);
+                if (quotation.specialist.id == id)
                     return Ok(quotation);
                 else
                     return BadRequest();
@@ -367,10 +367,10 @@ namespace ServiciosMovilkes.Controllers
             try
             {
                 QuotationManager manager = new QuotationManager();
-                quotation.specialistId = id;
+                quotation.specialist.id = id;
                 Quotation result = manager.Insertar(quotation);
                 if (result != null)
-                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialistId })), result);
+                    return Created(new Uri(Url.Link(ViewRouteName, new { id = result.specialist.id })), result);
                 else return BadRequest();
             }
             catch (Exception e)
@@ -387,9 +387,9 @@ namespace ServiciosMovilkes.Controllers
             {
                 QuotationManager manager = new QuotationManager();
                 Quotation temp = manager.Obtener(quotationid);
-                if (temp.specialistId == id)
+                if (temp.specialist.id == id)
                 {
-                    quotation.specialistId = id;
+                    quotation.specialist.id = id;
                     Quotation result = manager.Editar(quotationid, quotation);
                     if (result != null)
                         return Ok();
@@ -411,7 +411,7 @@ namespace ServiciosMovilkes.Controllers
             {
                 QuotationManager manager = new QuotationManager();
                 Quotation temp = manager.Obtener(quotationid);
-                if (temp.specialistId == id)
+                if (temp.specialist.id == id)
                 {
                     Quotation result = manager.Eliminar(quotationid);
                     if (result != null)

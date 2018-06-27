@@ -11,10 +11,12 @@ namespace ServiciosMovilkes.Manager
     {
         public Problem Obtener(int id)
         {
+            CustomerManager customerManager = new CustomerManager();
+
             Problem spe = null;
             SqlConnection con = new SqlConnection(Resource.CadenaConexion);
             con.Open();
-            string sql = "select Id,CustomerId,Title,Description,State from Problems where Id = @problem";
+            string sql = "select Id,customerid,Title,Description,State from Problems where Id = @problem";
 
             SqlCommand cmd = new SqlCommand(sql, con);
             cmd.Parameters.Add("@problem", System.Data.SqlDbType.NVarChar).Value = id;
@@ -24,7 +26,7 @@ namespace ServiciosMovilkes.Manager
             {
                 spe = new Problem();
                 spe.id = reader.GetInt32(0);
-                spe.customerId = reader.GetInt32(1);
+                spe.customer = customerManager.Obtener(reader.GetInt32(1));
                 spe.title = reader.GetString(2);
                 spe.description = reader.GetString(3);
                 spe.state = reader.GetByte(4);
@@ -41,18 +43,20 @@ namespace ServiciosMovilkes.Manager
             con.Open();
             try
             {
-                string sql = "Insert into Problems(CustomerId,Title,Description,State) " +
+                string sql = "Insert into Problems(customerid,Title,Description,State) " +
                 "output INSERTED.Id values(@customerid,@title,@description,@state)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.customerId;
+                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.customer.id;
                 cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.title;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.description;
                 cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state; 
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
+                    CustomerManager customerManager = new CustomerManager();
                     result = Obtener(modified);
+                    result.customer = customerManager.Obtener(result.customer.id);
                 }
             }
             catch (Exception e)
@@ -72,11 +76,11 @@ namespace ServiciosMovilkes.Manager
             con.Open();
             try
             {
-                string sql = "Update Problems set CustomerId = @customerid,Title= @title" +
+                string sql = "Update Problems set customerid = @customerid,Title= @title" +
                     ",Description = @description,State = @state output INSERTED.Id where Id = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.customerId;
+                cmd.Parameters.Add("@customerid", System.Data.SqlDbType.Int).Value = spe.customer.id;
                 cmd.Parameters.Add("@title", System.Data.SqlDbType.NVarChar).Value = spe.title;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.NVarChar).Value = spe.description;
                 cmd.Parameters.Add("@state", System.Data.SqlDbType.Bit).Value = spe.state; 
@@ -108,7 +112,7 @@ namespace ServiciosMovilkes.Manager
             List<Quotation> lista = new List<Quotation>();
             try
             {
-                string sql = "select Id,ProblemId,SpecialistId,Description," +
+                string sql = "select Id,ProblemId,specialistid,Description," +
                 "Price,EstimatedTime,IncludesMaterials,State," +
                 "StartDate,FinishDate,FinalPrice,SpecialistRate," +
                 "SpecialistComment,CustomerRate,CustomerComment from Quotations where ProblemId = @problem";
@@ -119,8 +123,8 @@ namespace ServiciosMovilkes.Manager
                 {
                     Quotation spe = new Quotation();
                     spe.id = reader.GetInt32(0);
-                    spe.problemId = reader.GetInt32(1);
-                    spe.specialistId = reader.GetInt32(2);
+                    spe.problem.id = reader.GetInt32(1);
+                    spe.specialist.id = reader.GetInt32(2);
                     spe.description = reader.GetString(3);
                     spe.price = reader.GetDecimal(4);
                     spe.estimatedTime = reader.GetByte(5);

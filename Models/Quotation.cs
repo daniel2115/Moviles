@@ -8,8 +8,10 @@ namespace ServiciosMovilkes.Models
     public class Quotation
     {
         public int id { get; set; }
-        public int problemId { get; set; }
-        public int specialistId { get; set; }
+        //public int problemId { get; set; }
+        public Problem problem = new Problem();
+        //public int specialistId { get; set; }
+        public Specialist specialist = new Specialist();
         public String description { get; set; }
         public Decimal price { get; set; }
         public Byte estimatedTime { get; set; }

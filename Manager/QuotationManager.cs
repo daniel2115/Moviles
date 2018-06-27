@@ -26,10 +26,13 @@ namespace ServiciosMovilkes.Manager
                 cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
             if (reader.Read())
             {
+                ProblemManager problemManager = new ProblemManager();
+                SpecialistManager specialistManager = new SpecialistManager();
+
                 spe = new Quotation();
                 spe.id = reader.GetInt32(0);
-                spe.problemId = reader.GetInt32(1);
-                spe.specialistId = reader.GetInt32(2);
+                spe.problem = problemManager.Obtener(reader.GetInt32(1));
+                spe.specialist = specialistManager.Obtener(reader.GetInt32(2));
                 spe.description = reader.GetString(3);
                 spe.price = reader.GetDecimal(4);
                 spe.estimatedTime = reader.GetByte(5);
@@ -62,8 +65,8 @@ namespace ServiciosMovilkes.Manager
                 ",@specialistrate,@specialistcomment,@customerrate,@customercomment)";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.problemId;
-                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.specialistId;
+                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.problem.id;
+                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.specialist.id;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.description;
                 cmd.Parameters.Add("@price", System.Data.SqlDbType.Decimal).Value = spe.price;
                 cmd.Parameters.Add("@estimatedtime", System.Data.SqlDbType.Bit).Value = spe.estimatedTime;
@@ -79,7 +82,12 @@ namespace ServiciosMovilkes.Manager
                 int modified = (int)cmd.ExecuteScalar();
                 if (modified != 0)
                 {
+                    ProblemManager problemManager = new ProblemManager();
+                    SpecialistManager specialistManager = new SpecialistManager();
+
                     result = Obtener(modified);
+                    result.specialist =  specialistManager.Obtener(result.specialist.id);
+                    result.problem = problemManager.Obtener(result.problem.id);
                 }
             }
             catch (Exception e)
@@ -106,8 +114,8 @@ namespace ServiciosMovilkes.Manager
                     "output INSERTED.Id where Id = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.problemId;
-                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.specialistId;
+                cmd.Parameters.Add("@problemid", System.Data.SqlDbType.Int).Value = spe.problem.id;
+                cmd.Parameters.Add("@specialistid", System.Data.SqlDbType.Int).Value = spe.specialist.id;
                 cmd.Parameters.Add("@description", System.Data.SqlDbType.VarChar).Value = spe.description;
                 cmd.Parameters.Add("@price", System.Data.SqlDbType.Decimal).Value = spe.price;
                 cmd.Parameters.Add("@estimatedtime", System.Data.SqlDbType.Bit).Value = spe.estimatedTime;
@@ -157,7 +165,7 @@ namespace ServiciosMovilkes.Manager
                 {
                     Additional spe = new Additional();
                     spe.id = reader.GetInt32(0);
-                    spe.quotationId = reader.GetInt32(1);
+                    spe.quotation.id = reader.GetInt32(1);
                     spe.price = reader.GetDecimal(2);
                     spe.description = reader.GetString(3);
                     spe.state = reader.GetByte(4);
